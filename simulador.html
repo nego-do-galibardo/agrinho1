@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Agrinho</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Simulador de Quinta Sustentável</h1>
+        <nav><a href="index.html">Voltar</a></nav>
+    </header>
+
+    <main class="container">
+        <section class="simulator-box">
+            <h3>Configure as Práticas da sua Quinta</h3>
+            
+            <div class="input-group">
+                <label>Uso de Água:</label>
+                <select id="agua">
+                    <option value="10">Irrigação Convencional</option>
+                    <option value="30">Irrigação Gota-a-Gota (Eficiente)</option>
+                    <option value="50">Reuso de Água da Chuva</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Energia:</label>
+                <select id="energia">
+                    <option value="10">Rede Elétrica Comum</option>
+                    <option value="40">Painéis Solares</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Reflorestamento:</label>
+                <input type="checkbox" id="arvores" value="20"> Possui área de reserva legal?
+            </div>
+
+            <button onclick="calcularSustentabilidade()">Calcular Pontuação</button>
+
+            <div id="resultado" class="result-hidden">
+                <h4>Resultado: <span id="score">0</span> pontos</h4>
+                <p id="feedback"></p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
