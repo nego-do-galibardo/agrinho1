@@ -1,52 +1,153 @@
 <!DOCTYPE html>
-<html lang="pt-pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador Agrinho</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Simulador Agrinho | Sustentabilidade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --verde-primario: #2D5A27;
+            --verde-claro: #4CAF50;
+            --amarelo-destaque: #FFCC00;
+            --branco-creme: #F9FBF9;
+            --texto-escuro: #1A3317;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--branco-creme);
+            color: var(--texto-escuro);
+        }
+
+        /* Fundo do Início com Imagem e Overlay */
+        .hero-section {
+            background: linear-gradient(rgba(45, 90, 39, 0.7), rgba(45, 90, 39, 0.7)), 
+                        url('https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&q=80&w=1500'); 
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero-section h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Container do Simulador */
+        .container {
+            max-width: 900px;
+            margin: -50px auto 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .card-explicativo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #f0f7ef;
+            padding: 15px;
+            border-left: 5px solid var(--amarelo-destaque);
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+
+        .card-explicativo img {
+            width: 80px;
+            border-radius: 10px;
+        }
+
+        /* Botões Chamativos */
+        .btn-simular {
+            background-color: var(--amarelo-destaque);
+            color: var(--verde-primario);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            display: block;
+            width: 100%;
+            text-transform: uppercase;
+        }
+
+        .btn-simular:hover {
+            transform: scale(1.02);
+            background-color: #e6b800;
+        }
+
+        /* Inputs e Selects */
+        select, input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Simulador de Quinta Sustentável</h1>
-        <nav><a href="index.html">Voltar</a></nav>
-    </header>
 
-    <main class="container">
-        <section class="simulator-box">
-            <h3>Configure as Práticas da sua Quinta</h3>
-            
-            <div class="input-group">
-                <label>Uso de Água:</label>
-                <select id="agua">
-                    <option value="10">Irrigação Convencional</option>
-                    <option value="30">Irrigação Gota-a-Gota (Eficiente)</option>
-                    <option value="50">Reuso de Água da Chuva</option>
-                </select>
+    <section class="hero-section">
+        <h1>Simulador Agrinho 2024</h1>
+        <p>A tecnologia transformando o campo com sustentabilidade.</p>
+    </section>
+
+    <div class="container">
+        <div class="card-explicativo">
+            <img src="https://cdn-icons-png.flaticon.com/512/2942/2942544.png" alt="Ícone Campo">
+            <div>
+                <h3>Como funciona?</h3>
+                <p>Escolha o tipo de cultivo e a área para calcular o uso ideal de recursos e evitar desperdícios.</p>
             </div>
+        </div>
 
-            <div class="input-group">
-                <label>Energia:</label>
-                <select id="energia">
-                    <option value="10">Rede Elétrica Comum</option>
-                    <option value="40">Painéis Solares</option>
-                </select>
-            </div>
+        <form id="simulador-form">
+            <label for="cultura">Selecione a Cultura:</label>
+            <select id="cultura">
+                <option value="soja">Soja</option>
+                <option value="milho">Milho</option>
+                <option value="trigo">Trigo</option>
+            </select>
 
-            <div class="input-group">
-                <label>Reflorestamento:</label>
-                <input type="checkbox" id="arvores" value="20"> Possui área de reserva legal?
-            </div>
+            <label for="area">Área (em hectares):</label>
+            <input type="number" id="area" placeholder="Ex: 50">
 
-            <button onclick="calcularSustentabilidade()">Calcular Pontuação</button>
+            <button type="button" class="btn-simular" onclick="calcular()">Simular Impacto</button>
+        </form>
 
-            <div id="resultado" class="result-hidden">
-                <h4>Resultado: <span id="score">0</span> pontos</h4>
-                <p id="feedback"></p>
-            </div>
-        </section>
-    </main>
+        <div id="resultado" style="margin-top: 20px; font-weight: 600; text-align: center; color: var(--verde-primario);"></div>
+    </div>
 
-    <script src="script.js"></script>
+    <script>
+        function calcular() {
+            const area = document.getElementById('area').value;
+            const cultura = document.getElementById('cultura').value;
+            const resultadoDiv = document.getElementById('resultado');
+
+            if(area > 0) {
+                let agua = area * 500; // Cálculo fictício
+                resultadoDiv.innerHTML = `Para ${area} hectares de ${cultura}, você economizará aproximadamente ${agua.toLocaleString()} litros de água com tecnologia de precisão!`;
+            } else {
+                resultadoDiv.innerHTML = "Por favor, insira uma área válida.";
+            }
+        }
+    </script>
 </body>
 </html>
