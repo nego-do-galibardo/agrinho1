@@ -3,155 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Agrinho | Início</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Agrinho | Inovação Verde</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --verde-escuro: #1b4332;
-            --verde-principal: #2d6a4f;
-            --amarelo-brilhante: #ffca3a;
-            --amarelo-suave: #ffea00;
-            --branco: #ffffff;
+            --amarelo-ouro: #FFD700;
+            --verde-floresta: #013220;
+            --verde-campo: #2E7D32;
+            --branco: #FFFFFF;
         }
 
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
+            background-color: #f4f4f4;
         }
 
-        /* Cabeçalho com Degradê Verde/Amarelo */
+        /* Topo com efeito visual */
         header {
-            background: linear-gradient(135deg, var(--verde-escuro), var(--verde-principal));
-            color: var(--branco);
-            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--verde-floresta), var(--verde-campo));
+            color: var(--amarelo-ouro);
+            padding: 80px 20px;
             text-align: center;
-            border-bottom: 8px solid var(--amarelo-brilhante);
+            border-bottom: 10px solid var(--amarelo-ouro);
         }
 
         header h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -2px;
         }
 
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        /* Seção de Conteúdo */
-        .main-content {
-            max-width: 1100px;
-            margin: -40px auto 40px;
-            padding: 20px;
+        /* Container dos Blocos */
+        .grid-container {
+            max-width: 1200px;
+            margin: -50px auto 50px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 25px;
+            padding: 0 20px;
         }
 
-        /* Cards Estilizados */
-        .card {
+        .bloco {
             background: var(--branco);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: 0.4s;
+            border: 3px solid transparent;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
+        .bloco:hover {
+            transform: translateY(-15px);
+            border-color: var(--amarelo-ouro);
         }
 
-        .card-img {
-            height: 200px;
+        /* Imagens dos Blocos */
+        .bloco-img {
+            height: 220px;
             background-size: cover;
             background-position: center;
         }
 
-        /* Imagens de fundo para os cards */
-        .img-simulador { background-image: url('https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&q=80&w=800'); }
-        .img-sobre { background-image: url('https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80&w=800'); }
+        .img-1 { background-image: url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800'); }
+        .img-2 { background-image: url('https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=800'); }
+        .img-3 { background-image: url('https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800'); }
 
-        .card-body {
+        .bloco-conteudo {
             padding: 25px;
             text-align: center;
         }
 
-        .card-body h2 {
-            color: var(--verde-escuro);
+        .bloco-conteudo h2 {
+            color: var(--verde-floresta);
+            margin-bottom: 15px;
             font-family: 'Montserrat', sans-serif;
-            margin-top: 0;
         }
 
-        .card-body p {
-            color: #555;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* Botão Chamativo */
-        .btn {
+        /* Botões Funcionais */
+        .btn-link {
             display: inline-block;
-            background-color: var(--amarelo-brilhante);
-            color: var(--verde-escuro);
+            background: var(--amarelo-ouro);
+            color: var(--verde-floresta);
             text-decoration: none;
-            padding: 12px 30px;
+            padding: 12px 25px;
             border-radius: 50px;
             font-weight: bold;
-            margin-top: 15px;
-            transition: background 0.3s;
-            border: 2px solid transparent;
+            text-transform: uppercase;
+            transition: 0.3s;
         }
 
-        .btn:hover {
-            background-color: var(--verde-principal);
-            color: var(--branco);
-            border-color: var(--amarelo-suave);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--verde-escuro);
-            font-weight: 600;
+        .btn-link:hover {
+            background: var(--verde-floresta);
+            color: var(--amarelo-ouro);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Projeto Agrinho 2024</h1>
-        <p>Inovação e Sustentabilidade no Campo</p>
+        <h1>PROJETO AGRINHO</h1>
+        <p style="color: white;">Ouro no campo, verde no coração.</p>
     </header>
 
-    <main class="main-content">
-        
-        <div class="card">
-            <div class="card-img img-simulador"></div>
-            <div class="card-body">
-                <h2>Simulador de Impacto</h2>
-                <p>Descubra como a tecnologia pode ajudar a economizar recursos naturais e aumentar a produtividade na sua fazenda.</p>
-                <a href="simulador.html" class="btn">ACESSAR SIMULADOR</a>
+    <div class="grid-container">
+        <div class="bloco">
+            <div class="bloco-img img-1"></div>
+            <div class="bloco-conteudo">
+                <h2>Simulador</h2>
+                <p>Calcule o uso de recursos e veja como a tecnologia ajuda a colher mais.</p>
+                <a href="simulador.html" class="btn-link">Testar Agora</a>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-img img-sobre"></div>
-            <div class="card-body">
+        <div class="bloco">
+            <div class="bloco-img img-2"></div>
+            <div class="bloco-conteudo">
+                <h2>Tecnologias</h2>
+                <p>Conheça drones e sensores que estão revolucionando o agronegócio.</p>
+                <a href="#" class="btn-link">Ver Mais</a>
+            </div>
+        </div>
+
+        <div class="bloco">
+            <div class="bloco-img img-3"></div>
+            <div class="bloco-conteudo">
                 <h2>Sustentabilidade</h2>
-                <p>Aprenda conceitos fundamentais sobre preservação ambiental e as melhores práticas do agronegócio moderno.</p>
-                <a href="#" class="btn">LER MAIS</a>
+                <p>Dicas práticas para cuidar do solo e da água da nossa região.</p>
+                <a href="#" class="btn-link">Aprender</a>
             </div>
         </div>
-
-    </main>
-
-    <footer>
-        <p>Desenvolvido para o Concurso Agrinho</p>
-    </footer>
+    </div>
 
 </body>
 </html>
