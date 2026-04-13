@@ -1,44 +1,78 @@
-:root {
-    --p-green: #2d5a27;
-    --s-yellow: #f1c40f;
-    --dark: #1a1a1a;
-    --light: #f8f9fa;
-    --card: #ffffff;
-    --transition: 0.3s ease;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f4f9f4;
+    color: #333;
 }
 
-body.dark-mode {
-    --light: #121212;
-    --dark: #f8f9fa;
-    --card: #1e1e1e;
+header {
+    background-color: #2e7d32;
+    color: white;
+    padding: 1rem;
+    text-align: center;
 }
 
-body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--dark); transition: var(--transition); margin: 0; }
-.container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-/* Navegação por Abas */
-.tab-content { display: none; animation: fadeIn 0.5s ease; }
-.tab-content.active { display: block; }
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+}
 
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
 
-.nav-flex { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
-.nav-links { display: flex; list-style: none; gap: 10px; }
-.nav-btn { background: none; border: none; color: var(--dark); font-weight: 500; cursor: pointer; padding: 10px; transition: var(--transition); }
-.nav-btn.active { color: var(--p-green); border-bottom: 2px solid var(--p-green); }
+.card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
 
-/* UI do Simulador e Cards (Repetido do anterior para manter estilo) */
-.simulator-box, .tech-card { background: var(--card); padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-.grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
-.btn-calc, .btn-primary { background: var(--p-green); color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; }
-.btn-primary { width: auto; margin-top: 20px; }
+.card img { width: 100%; height: 200px; object-fit: cover; }
 
-.result-card { margin-top: 25px; border-top: 3px solid var(--p-green); }
-.stats-grid { display: flex; justify-content: space-around; margin: 20px 0; }
-.stat-item span { font-size: 2rem; font-weight: 800; color: var(--p-green); }
-.progress-bar { height: 10px; background: #eee; border-radius: 5px; overflow: hidden; }
-#bar-fill { height: 100%; background: var(--p-green); width: 0%; transition: 1s ease-in-out; }
-.hidden { display: none; }
+.card:hover { transform: translateY(-5px); }
 
-.tech-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-.img-placeholder { font-size: 3rem; text-align: center; background: #e9edc9; border-radius: 10px; padding: 20px; }
+.simulator-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.input-group { margin-bottom: 20px; }
+
+select, button {
+    padding: 10px;
+    width: 100%;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+button {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.result-visible {
+    margin-top: 20px;
+    padding: 15px;
+    background: #e8f5e9;
+    border-left: 5px solid #2e7d32;
+}
+
+.result-hidden { display: none; }
