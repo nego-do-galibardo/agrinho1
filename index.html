@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agro Forte, Futuro Sustentável | Equilíbrio no Campo</title>
+    <meta name="description" content="Portal sobre a união entre produção agrícola de alta eficiência e a preservação do meio ambiente.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/favicon.png" type="image/png">
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <h1>Agro <span>Sustentável</span></h1>
+            </div>
+            <nav aria-label="Navegação Principal">
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#pilares">Pilares</a></li>
+                    <li><a href="#calculadora">Simulador</a></li>
+                </ul>
+            </nav>
+            <div class="accessibility-controls">
+                <button id="toggle-dark-mode" aria-label="Alternar Modo Escuro">🌓 Mode</button>
+            </div>
+        </div>
+    </header>
+
+    <main id="inicio">
+        <section class="banner">
+            <div class="container banner-text">
+                <h2>Tecnologia que Colhe, Consciência que Preserva</h2>
+                <p>O equilíbrio perfeito entre a produção de alimentos e a proteção da biodiversidade é o único caminho para um futuro forte.</p>
+                <a href="#pilares" class="btn-primary">Conheça os Pilares</a>
+            </div>
+        </section>
+
+        <section id="pilares" class="section-padding">
+            <div class="container">
+                <h3 class="section-title">Nossa Visão de Equilíbrio</h3>
+                <div class="grid-pilares">
+                    <article class="pilar-card">
+                        <span class="icon">🌱</span>
+                        <h4>Produção Consciente</h4>
+                        <p>Uso de técnicas como plantio direto e rotação de culturas para manter o solo saudável e produtivo.</p>
+                    </article>
+                    <article class="pilar-card">
+                        <span class="icon">💧</span>
+                        <h4>Gestão Hídrica</h4>
+                        <p>Sistemas de irrigação de precisão que economizam água e fertilizantes, reduzindo o desperdício.</p>
+                    </article>
+                    <article class="pilar-card">
+                        <span class="icon">🤝</span>
+                        <h4>Biodiversidade</h4>
+                        <p>Integração de áreas de preservação ambiental (APPs) e reservas legais como aliadas da lavoura.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="calculadora" class="section-padding bg-light">
+            <div class="container">
+                <h3 class="section-title">Simulador de Eficiência Hídrica</h3>
+                <p class="description">Este simulador ilustrativo ajuda a entender o impacto da tecnologia. Digite o tamanho da sua área (em hectares) e o tipo de irrigação.</p>
+                
+                <form id="simulador-form" class="form-style">
+                    <div class="form-group">
+                        <label for="area">Tamanho da Área (Hectares):</label>
+                        <input type="number" id="area" name="area" placeholder="Ex: 50" required min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="tecnologia">Tipo de Irrigação:</label>
+                        <select id="tecnologia" name="tecnologia" required>
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="convencional">Aspersão Comum</option>
+                            <option value="gotejamento">Gotejamento de Precisão (Sustentável)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-secondary">Calcular Impacto</button>
+                </form>
+
+                <div id="resultado-simulacao" class="resultado-container hidden" aria-live="polite">
+                    <h4>Resultado do Simulador:</h4>
+                    <p id="texto-resultado"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2023 Agro Sustentável. Projeto para a Tag #Agrinho.</p>
+            <p>Desenvolvido com foco no equilíbrio.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
