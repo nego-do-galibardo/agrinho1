@@ -1,101 +1,43 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agro Forte, Futuro Sustentável | Equilíbrio no Campo</title>
-    <meta name="description" content="Portal sobre a união entre produção agrícola de alta eficiência e a preservação do meio ambiente.">
+    <title>Projeto Agrinho - Futuro Sustentável</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="img/favicon.png" type="image/png">
 </head>
 <body>
-
     <header>
-        <div class="container header-content">
-            <div class="logo">
-                <h1>Agro <span>Sustentável</span></h1>
-            </div>
-            <nav aria-label="Navegação Principal">
-                <ul>
-                    <li><a href="#inicio">Início</a></li>
-                    <li><a href="#pilares">Pilares</a></li>
-                    <li><a href="#calculadora">Simulador</a></li>
-                </ul>
-            </nav>
-            <div class="accessibility-controls">
-                <button id="toggle-dark-mode" aria-label="Alternar Modo Escuro">🌓 Mode</button>
-            </div>
-        </div>
+        <h1>Agrinho: Tecnologia e Campo</h1>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="simulador.html">Simulador</a>
+        </nav>
     </header>
 
-    <main id="inicio">
-        <section class="banner">
-            <div class="container banner-text">
-                <h2>Tecnologia que Colhe, Consciência que Preserva</h2>
-                <p>O equilíbrio perfeito entre a produção de alimentos e a proteção da biodiversidade é o único caminho para um futuro forte.</p>
-                <a href="#pilares" class="btn-primary">Conheça os Pilares</a>
-            </div>
+    <main class="container">
+        <section class="intro">
+            <h2>Bem-vindo ao Futuro do Agronegócio</h2>
+            <p>Explora como a tecnologia e a sustentabilidade estão a transformar o campo.</p>
         </section>
 
-        <section id="pilares" class="section-padding">
-            <div class="container">
-                <h3 class="section-title">Nossa Visão de Equilíbrio</h3>
-                <div class="grid-pilares">
-                    <article class="pilar-card">
-                        <span class="icon">🌱</span>
-                        <h4>Produção Consciente</h4>
-                        <p>Uso de técnicas como plantio direto e rotação de culturas para manter o solo saudável e produtivo.</p>
-                    </article>
-                    <article class="pilar-card">
-                        <span class="icon">💧</span>
-                        <h4>Gestão Hídrica</h4>
-                        <p>Sistemas de irrigação de precisão que economizam água e fertilizantes, reduzindo o desperdício.</p>
-                    </article>
-                    <article class="pilar-card">
-                        <span class="icon">🤝</span>
-                        <h4>Biodiversidade</h4>
-                        <p>Integração de áreas de preservação ambiental (APPs) e reservas legais como aliadas da lavoura.</p>
-                    </article>
-                </div>
+        <div class="grid-cards">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=400" alt="Campo Verde">
+                <h3>Agricultura Rural</h3>
+                <p>O coração da produção de alimentos com técnicas tradicionais e modernas.</p>
             </div>
-        </section>
-
-        <section id="calculadora" class="section-padding bg-light">
-            <div class="container">
-                <h3 class="section-title">Simulador de Eficiência Hídrica</h3>
-                <p class="description">Este simulador ilustrativo ajuda a entender o impacto da tecnologia. Digite o tamanho da sua área (em hectares) e o tipo de irrigação.</p>
-                
-                <form id="simulador-form" class="form-style">
-                    <div class="form-group">
-                        <label for="area">Tamanho da Área (Hectares):</label>
-                        <input type="number" id="area" name="area" placeholder="Ex: 50" required min="1">
-                    </div>
-                    <div class="form-group">
-                        <label for="tecnologia">Tipo de Irrigação:</label>
-                        <select id="tecnologia" name="tecnologia" required>
-                            <option value="" disabled selected>Selecione...</option>
-                            <option value="convencional">Aspersão Comum</option>
-                            <option value="gotejamento">Gotejamento de Precisão (Sustentável)</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-secondary">Calcular Impacto</button>
-                </form>
-
-                <div id="resultado-simulacao" class="resultado-container hidden" aria-live="polite">
-                    <h4>Resultado do Simulador:</h4>
-                    <p id="texto-resultado"></p>
-                </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1473976140397-f140ec0998f0?auto=format&fit=crop&w=400" alt="Energia Solar">
+                <h3>Sustentabilidade</h3>
+                <p>Preservação de recursos naturais e uso de energias renováveis na quinta.</p>
             </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container footer-content">
-            <p>&copy; 2023 Agro Sustentável. Projeto para a Tag #Agrinho.</p>
-            <p>Desenvolvido com foco no equilíbrio.</p>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400" alt="Drone Agrícola">
+                <h3>Tecnologia</h3>
+                <p>Drones, sensores e IA aplicados para aumentar a produtividade.</p>
+            </div>
         </div>
-    </footer>
-
-    <script src="script.js"></script>
+    </main>
 </body>
 </html>
