@@ -1,42 +1,29 @@
-// Função para trocar de aba (SPA)
-function switchTab(tabId) {
-    // Esconde todas as abas
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    // Desativa todos os botões
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
+function calcularSustentabilidade() {
+    let score = 0;
+    
+    // Obtém valores dos seletores
+    const agua = parseInt(document.getElementById('agua').value);
+    const energia = parseInt(document.getElementById('energia').value);
+    const arvores = document.getElementById('arvores').checked ? 20 : 0;
 
-    // Ativa a aba e o botão correspondente
-    document.getElementById(tabId).classList.add('active');
-    const activeBtn = document.querySelector(`[data-target="${tabId}"]`);
-    if (activeBtn) activeBtn.classList.add('active');
+    score = agua + energia + arvores;
+
+    // Exibe resultado
+    const resDiv = document.getElementById('resultado');
+    const scoreSpan = document.getElementById('score');
+    const feedback = document.getElementById('feedback');
+
+    resDiv.className = "result-visible";
+    scoreSpan.innerText = score;
+
+    if(score >= 80) {
+        feedback.innerText = "Excelente! A sua quinta é um modelo de sustentabilidade.";
+        feedback.style.color = "green";
+    } else if(score >= 40) {
+        feedback.innerText = "Bom caminho, mas pode melhorar a gestão de recursos.";
+        feedback.style.color = "orange";
+    } else {
+        feedback.innerText = "Atenção: Precisa implementar mais práticas ecológicas.";
+        feedback.style.color = "red";
+    }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Listener para os botões de navegação
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const target = btn.getAttribute('data-target');
-            switchTab(target);
-        });
-    });
-
-    // Modo Escuro
-    document.getElementById('theme-toggle').addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-    });
-
-    // Lógica do Simulador
-    const form = document.getElementById('complex-sim');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const area = parseFloat(document.getElementById('area').value);
-        const fCultura = parseFloat(document.getElementById('cultura').value);
-        const fPlantio = parseFloat(document.getElementById('plantio').value);
-        const fIrrigacao = parseFloat(document.getElementById('irrigacao').value);
-
-        // Cálculo: (Plantio + Irrigação) transform
