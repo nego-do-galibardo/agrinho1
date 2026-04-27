@@ -25,7 +25,6 @@
             margin: auto;
         }
 
-        /* Botão Voltar */
         .btn-voltar {
             background-color: transparent;
             color: var(--verde-floresta);
@@ -44,7 +43,6 @@
             color: var(--amarelo-ouro);
         }
 
-        /* Card Principal */
         .card-principal {
             background: white;
             padding: 40px;
@@ -68,7 +66,6 @@
             border-left: 5px solid var(--verde-floresta);
         }
 
-        /* Formulário */
         .form-group {
             margin-bottom: 20px;
         }
@@ -109,15 +106,23 @@
             transform: scale(1.02);
         }
 
-        /* Resultado */
         #resultado {
             margin-top: 30px;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
             background-color: #fffde7;
-            border: 1px solid var(--amarelo-ouro);
+            border: 2px solid var(--amarelo-ouro);
             display: none;
-            text-align: center;
+        }
+
+        .badge {
+            background: var(--verde-floresta);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            display: inline-block;
         }
     </style>
 </head>
@@ -127,51 +132,63 @@
         <a href="index.html" class="btn-voltar">← Voltar ao Início</a>
 
         <div class="card-principal">
-            <h1>Simulador de Campo</h1>
+            <h1>Simulador de Sementes</h1>
             
             <div class="explicacao">
-                <strong>💡 Texto Explicadinho:</strong><br>
-                Este simulador ajuda você a entender como o uso de tecnologia no campo 
-                pode economizar água e aumentar a saúde da sua plantação!
+                <strong>🌱 Planejamento Inteligente:</strong><br>
+                Descubra a quantidade ideal de sacos de sementes (60kg) para a sua área. O cálculo considera a média de densidade recomendada para cada cultura.
             </div>
 
             <div class="form-group">
-                <label for="cultura">O que você vai plantar?</label>
+                <label for="cultura">Qual cultura você deseja plantar?</label>
                 <select id="cultura">
-                    <option value="Soja">Soja</option>
-                    <option value="Milho">Milho</option>
-                    <option value="Trigo">Trigo</option>
+                    <option value="Soja">Soja (Média 1.2 saca/ha)</option>
+                    <option value="Milho">Milho (Média 1.0 saca/ha)</option>
+                    <option value="Trigo">Trigo (Média 2.5 sacas/ha)</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="area">Tamanho da área (Hectares):</label>
-                <input type="number" id="area" placeholder="Ex: 50">
+                <input type="number" id="area" placeholder="Digite o número de hectares">
             </div>
 
-            <button class="btn-simular" onclick="calcular()">Calcular Impacto</button>
+            <button class="btn-simular" onclick="calcularSementes()">Calcular Necessidade</button>
 
             <div id="resultado"></div>
         </div>
     </div>
 
     <script>
-        function calcular() {
-            const area = document.getElementById('area').value;
+        function calcularSementes() {
+            const area = parseFloat(document.getElementById('area').value);
             const cultura = document.getElementById('cultura').value;
             const resDiv = document.getElementById('resultado');
 
             if (area > 0) {
-                // Cálculo fictício: 400 litros economizados por hectare
-                const economia = area * 400;
+                let sacasPorHectare = 0;
+
+                // Definindo as médias de sacas por hectare
+                if (cultura === "Soja") sacasPorHectare = 1.2;
+                else if (cultura === "Milho") sacasPorHectare = 1.0;
+                else if (cultura === "Trigo") sacasPorHectare = 2.5;
+
+                const totalSacas = (area * sacasPorHectare).toFixed(1);
+
                 resDiv.style.display = "block";
                 resDiv.innerHTML = `
-                    <h3 style="color: var(--verde-floresta); margin-top:0;">📊 Resultado</h3>
-                    <p>Ao usar tecnologia na sua plantação de <strong>${cultura}</strong> em <strong>${area} hectares</strong>, 
-                    você pode economizar até <strong>${economia.toLocaleString()} litros</strong> de água!</p>
+                    <div class="badge">Resultado da Simulação</div>
+                    <h2 style="color: var(--verde-floresta); margin-top:0;">Planejamento Concluído!</h2>
+                    <p>Para plantar <strong>${area} hectares</strong> de <strong>${cultura}</strong>, você precisará de aproximadamente:</p>
+                    <div style="font-size: 1.5rem; color: #d4a017; font-weight: bold;">
+                        📦 ${totalSacas} sacas de sementes
+                    </div>
+                    <p style="font-size: 0.8rem; color: #666; margin-top: 15px;">
+                        *Cálculo baseado em médias técnicas. Consulte sempre um engenheiro agrônomo para ajustes de densidade específicos da sua variedade.
+                    </p>
                 `;
             } else {
-                alert("Por favor, insira um valor de área válido.");
+                alert("Por favor, insira um valor válido para a área da plantação.");
             }
         }
     </script>
