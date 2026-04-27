@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tecnologias Agrícolas | Agrinho</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Tecnologias | Agrinho</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --amarelo-ouro: #FFD700;
@@ -17,163 +17,168 @@
             margin: 0;
             font-family: 'Poppins', sans-serif;
             background-color: #f4f4f4;
-            color: #333;
         }
 
         header {
             background: linear-gradient(135deg, var(--verde-floresta), var(--verde-campo));
             color: var(--amarelo-ouro);
-            padding: 50px 20px;
+            padding: 60px 20px;
             text-align: center;
             border-bottom: 8px solid var(--amarelo-ouro);
         }
 
-        header h1 {
-            margin: 0;
-            font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
         .container {
-            max-width: 1000px;
-            margin: 30px auto;
+            max-width: 1200px;
+            margin: -40px auto 50px;
             padding: 0 20px;
         }
 
         .btn-voltar {
             display: inline-block;
-            margin-bottom: 30px;
+            background: var(--branco);
             color: var(--verde-floresta);
             text-decoration: none;
-            font-weight: bold;
-            border: 2px solid var(--verde-floresta);
             padding: 10px 25px;
             border-radius: 50px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: 0.3s;
         }
 
-        .btn-voltar:hover {
-            background: var(--verde-floresta);
-            color: var(--amarelo-ouro);
+        .btn-voltar:hover { transform: scale(1.05); background: var(--amarelo-ouro); }
+
+        /* GRID DE QUADRINHOS */
+        .grid-tech {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
 
-        /* Tech Cards */
-        .tech-card {
+        .card-tech {
             background: var(--branco);
             border-radius: 20px;
-            margin-bottom: 40px;
-            display: flex;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            border-bottom: 5px solid var(--verde-floresta);
         }
 
-        .tech-card:hover {
-            transform: scale(1.01);
-        }
+        .card-tech:hover { transform: translateY(-10px); border-color: var(--amarelo-ouro); }
 
-        .tech-img {
-            flex: 1;
-            min-width: 350px;
-            height: 300px;
+        .img-box {
+            height: 180px;
             background-size: cover;
             background-position: center;
-            transition: transform 0.5s ease;
         }
 
-        .tech-card:hover .tech-img {
-            transform: scale(1.1); /* Efeito de zoom na imagem */
-        }
+        .info-box { padding: 20px; }
 
-        .tech-info {
-            flex: 1.5;
-            padding: 40px;
-            min-width: 300px;
-            background: white;
-            z-index: 1;
-        }
-
-        .tech-info h2 {
+        .info-box h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
             color: var(--verde-floresta);
-            margin-top: 0;
             font-family: 'Montserrat', sans-serif;
-            border-bottom: 4px solid var(--amarelo-ouro);
+        }
+
+        .info-box ul {
+            padding: 0;
+            list-style: none;
+            margin: 0;
+        }
+
+        .info-box li {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-box li::before {
+            content: '✅';
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+
+        .tag {
             display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        .tech-info p {
-            line-height: 1.8;
-            color: #444;
-            font-size: 1rem;
-        }
-
-        strong {
+            background: #e8f5e9;
             color: var(--verde-campo);
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: var(--verde-floresta);
-            color: white;
-            margin-top: 50px;
-        }
-
-        /* Ajuste para Celulares */
-        @media (max-width: 768px) {
-            .tech-card {
-                flex-direction: column;
-            }
-            .tech-img {
-                min-width: 100%;
-            }
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Tecnologia no Campo</h1>
-        <p style="color: white; font-weight: 600;">A evolução digital na palma da mão do produtor.</p>
+        <h1 style="margin:0">TECNOLOGIAS 4.0</h1>
+        <p style="color:white">Rápido, prático e inovador.</p>
     </header>
 
     <div class="container">
-        <a href="index.html" class="btn-voltar">← Voltar para o Início</a>
+        <a href="index.html" class="btn-voltar">← Voltar</a>
 
-        <div class="tech-card">
-            <div class="tech-img" style="background-image: url('https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=800');"></div>
-            <div class="tech-info">
-                <h2>Drones Agrícolas</h2>
-                <p><strong>O que fazem?</strong> Eles sobrevoam a plantação tirando fotos de alta resolução e até aplicando defensivos em locais específicos. <br><br>
-                <strong>Explicadinho:</strong> Com essas fotos, o produtor consegue identificar pragas ou falta de nutrientes antes mesmo delas se espalharem, economizando tempo e dinheiro!</p>
+        <div class="grid-tech">
+            
+            <div class="card-tech">
+                <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=500');"></div>
+                <div class="info-box">
+                    <span class="tag">Monitoramento</span>
+                    <h2>Drones Inteligentes</h2>
+                    <ul>
+                        <li>Mapeia pragas em minutos</li>
+                        <li>Pulveriza com precisão</li>
+                        <li>Fotos em 4K do campo</li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <div class="tech-card">
-            <div class="tech-img" style="background-image: url('https://images.unsplash.com/photo-1530840632619-3c29046184b9?q=80&w=800');"></div>
-            <div class="tech-info">
-                <h2>GPS e Piloto Automático</h2>
-                <p><strong>O que fazem?</strong> Sistemas de satélite que guiam tratores e colheitadeiras com margem de erro de poucos centímetros.<br><br>
-                <strong>Explicadinho:</strong> Isso evita que o maquinário passe duas vezes no mesmo lugar (o famoso "pisoteio"), o que preserva o solo e evita o desperdício de combustível.</p>
+            <div class="card-tech">
+                <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1530840632619-3c29046184b9?q=80&w=500');"></div>
+                <div class="info-box">
+                    <span class="tag">Maquinário</span>
+                    <h2>GPS Agrícola</h2>
+                    <ul>
+                        <li>Piloto automático via satélite</li>
+                        <li>Zero desperdício de diesel</li>
+                        <li>Linhas de plantio perfeitas</li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <div class="tech-card">
-            <div class="tech-img" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800');"></div>
-            <div class="tech-info">
-                <h2>Sensores de Solo (IoT)</h2>
-                <p><strong>O que fazem?</strong> Sensores conectados à internet que monitoram a terra 24 horas por dia.<br><br>
-                <strong>Explicadinho:</strong> Eles avisam direto no celular quando a planta precisa de água ou adubo. É a tecnologia garantindo que nada seja usado em excesso, protegendo o planeta!</p>
+            <div class="card-tech">
+                <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=500');"></div>
+                <div class="info-box">
+                    <span class="tag">Internet das Coisas</span>
+                    <h2>Sensores de Solo</h2>
+                    <ul>
+                        <li>Mede a umidade em tempo real</li>
+                        <li>Economiza 40% de água</li>
+                        <li>Aviso direto no WhatsApp</li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
+            <div class="card-tech">
+                <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1558449028-b53a39d100fc?q=80&w=500');"></div>
+                <div class="info-box">
+                    <span class="tag">Dados</span>
+                    <h2>Apps de Clima</h2>
+                    <ul>
+                        <li>Previsão exata da chuva</li>
+                        <li>Melhor hora para adubar</li>
+                        <li>Histórico de temperatura</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
     </div>
-
-    <footer>
-        <p>Desenvolvido para o Agrinho 2024 - Conectando o Campo ao Futuro</p>
-    </footer>
 
 </body>
 </html>
