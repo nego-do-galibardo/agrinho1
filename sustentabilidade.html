@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sustentabilidade | Agrinho</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --amarelo-ouro: #FFD700;
             --verde-floresta: #013220;
+            --verde-campo: #2E7D32;
             --branco: #FFFFFF;
         }
 
@@ -16,84 +17,200 @@
             margin: 0;
             font-family: 'Poppins', sans-serif;
             background-color: #f4f4f4;
-            color: #333;
         }
 
         header {
-            background: var(--verde-floresta);
+            background: linear-gradient(135deg, var(--verde-floresta), var(--verde-campo));
             color: var(--amarelo-ouro);
-            padding: 40px 20px;
+            padding: 60px 20px;
             text-align: center;
-            border-bottom: 5px solid var(--amarelo-ouro);
+            border-bottom: 8px solid var(--amarelo-ouro);
         }
 
         .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
+            max-width: 1200px;
+            margin: -40px auto 50px;
+            padding: 0 20px;
         }
 
         .btn-voltar {
             display: inline-block;
-            margin-bottom: 20px;
+            background: var(--branco);
             color: var(--verde-floresta);
             text-decoration: none;
-            font-weight: bold;
-            border: 2px solid var(--verde-floresta);
-            padding: 8px 20px;
+            padding: 10px 25px;
             border-radius: 50px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: 0.3s;
         }
 
-        .btn-voltar:hover {
-            background: var(--verde-floresta);
-            color: var(--amarelo-ouro);
+        .btn-voltar:hover { transform: scale(1.05); background: var(--amarelo-ouro); }
+
+        /* GRID DE QUADRINHOS */
+        .grid-sustentavel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
 
-        .info-card {
+        .card-sustentavel {
             background: var(--branco);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border-left: 10px solid var(--verde-floresta);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            border-bottom: 5px solid var(--verde-floresta);
+            display: flex;
+            flex-direction: column;
         }
 
-        h2 { color: var(--verde-floresta); font-family: 'Montserrat'; }
-        
-        .destaque-ouro {
-            color: #b8860b;
+        .card-sustentavel:hover { 
+            transform: translateY(-10px); 
+            border-color: var(--amarelo-ouro); 
+        }
+
+        .img-box {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .info-box { padding: 20px; flex-grow: 1; }
+
+        .info-box h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            color: var(--verde-floresta);
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .info-box ul {
+            padding: 0;
+            list-style: none;
+            margin: 0;
+        }
+
+        .info-box li {
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            color: #444;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-box li::before {
+            content: '🌿';
+            margin-right: 8px;
+            font-size: 0.7rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e8f5e9;
+            color: var(--verde-campo);
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.65rem;
             font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Sustentabilidade no Campo</h1>
+        <h1 style="margin:0">AGRO SUSTENTÁVEL</h1>
+        <p style="color:white">Práticas rápidas para salvar o planeta.</p>
     </header>
 
     <div class="container">
-        <a href="index.html" class="btn-voltar">← Voltar para o Início</a>
+        <a href="index.html" class="btn-voltar">← Voltar</a>
 
-        <div class="info-card">
-            <h2>Rotação de Culturas</h2>
-            <p><strong>Explicadinho:</strong> Em vez de plantar sempre a mesma coisa, o agricultor muda o tipo de planta a cada safra. <br><br>
-            <span class="destaque-ouro">Por que é bom?</span> Isso deixa o solo mais forte e evita que pragas se acostumem com a plantação, diminuindo a necessidade de remédios químicos.</p>
+        <div class="grid-sustentavel">
+            
+            <div class="card-sustentavel">
+                <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?q=80&w=500');"></div>
+                <div class="info-box">
+                    <span class="tag">Solo</span>
+                    <h2>Rotação de Culturas</h2>
+                    <ul>
+                        <li>Recupera nutrientes</li>
+                        <li>Quebra o ciclo de pragas</li>
+                        <li>Terra fértil por anos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-sustentavel">
+                <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=500');"></div>
+                <div class="info-box">
+                    <span class="tag">Proteção</span>
+                    <h2>Plantio Direto</h2>
+                    <ul>
+                        <li>Zero erosão do solo</li>
+                        <li>Mantém a água na terra</li>
+                        <li>Economiza combustível</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-sustentavel">
+                <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=500');"></div>
+                <div class="info-box">
+                    <span class="tag">Água</span>
+                    <h2>Preservar Nascentes</h2>
+                    <ul>
+                        <li>Garante água limpa</li>
+                        <li>Recupera matas nativas</li>
+                        <li>Equilíbrio do ecossistema</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-sustentavel">
+                <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1509391366360-fe5bb58583bb?q=80&w=500');"></div>
+                <div class="info-box">
+                    <span class="tag">Energia</span>
+                    <h2>Painéis Solares</h2>
+                    <ul>
+                        <li>Fazenda 100% renovável</li>
+                        <li>Reduz custos fixos</li>
+                        <li>Energia que vem do sol</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-sustentavel">
+                <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1615811361523-6bd03d7748e7?q=80&w=500');"></div>
+                <div class="info-box">
+                    <span class="tag">Inovação</span>
+                    <h2>Bio-Insumos</h2>
+                    <ul>
+                        <li>Adubos naturais</li>
+                        <li>Menos química no prato</li>
+                        <li>Natureza ajudando a natureza</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-sustentavel">
+                <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1473973266408-ed4e27abdd47?q=80&w=500');"></div>
+                <div class="info-box">
+                    <span class="tag">Biodiversidade</span>
+                    <h2>Amigo das Abelhas</h2>
+                    <ul>
+                        <li>Polinização eficiente</li>
+                        <li>Aumenta a produtividade</li>
+                        <li>Protege polinizadores</li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
-
-        <div class="info-card">
-            <h2>Plantio Direto</h2>
-            <p><strong>Explicadinho:</strong> É quando o agricultor planta a nova semente em cima dos restos da plantação antiga, sem revirar a terra.<br><br>
-            <span class="destaque-ouro">Por que é bom?</span> A palha protege o chão como se fosse um cobertor, mantendo a umidade e evitando que a chuva leve a terra embora (erosão).</p>
-        </div>
-
-        <div class="info-card">
-            <h2>Preservação de Nascentes</h2>
-            <p><strong>Explicadinho:</strong> Manter as árvores e a vegetação nativa em volta de onde a água brota da terra.<br><br>
-            <span class="destaque-ouro">Por que é bom?</span> As raízes das árvores filtram a água e garantem que o rio nunca seque, mantendo a vida de todos os animais e das pessoas.</p>
-        </div>
-
     </div>
 
 </body>
