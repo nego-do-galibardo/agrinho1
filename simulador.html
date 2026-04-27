@@ -6,12 +6,26 @@
     <title>Simulador | Agrinho</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* (Mantenha seus estilos anteriores, mas adicione/ajuste estes abaixo) */
         :root {
             --amarelo-ouro: #FFD700;
             --verde-floresta: #013220;
+            --verde-suave: #e8f5e9;
         }
 
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        /* Botão Voltar */
         .btn-voltar {
             background-color: transparent;
             color: var(--verde-floresta);
@@ -30,21 +44,137 @@
             color: var(--amarelo-ouro);
         }
 
+        /* Card Principal */
+        .card-principal {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-top: 10px solid var(--amarelo-ouro);
+        }
+
+        h1 {
+            color: var(--verde-floresta);
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 0;
+        }
+
+        .explicacao {
+            background-color: var(--verde-suave);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            border-left: 5px solid var(--verde-floresta);
+        }
+
+        /* Formulário */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--verde-floresta);
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
         .btn-simular {
-            background-color: var(--amarelo-ouro) !important;
-            color: var(--verde-floresta) !important;
+            background-color: var(--amarelo-ouro);
+            color: var(--verde-floresta);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .btn-simular:hover {
+            background-color: var(--verde-floresta);
+            color: var(--amarelo-ouro);
+            transform: scale(1.02);
+        }
+
+        /* Resultado */
+        #resultado {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fffde7;
+            border: 1px solid var(--amarelo-ouro);
+            display: none;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div style="padding: 20px; max-width: 900px; margin: auto;">
+    <div class="container">
         <a href="index.html" class="btn-voltar">← Voltar ao Início</a>
 
-        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-            <h1 style="color: var(--verde-floresta); font-family: 'Montserrat';">Simulador de Campo</h1>
+        <div class="card-principal">
+            <h1>Simulador de Campo</h1>
+            
+            <div class="explicacao">
+                <strong>💡 Texto Explicadinho:</strong><br>
+                Este simulador ajuda você a entender como o uso de tecnologia no campo 
+                pode economizar água e aumentar a saúde da sua plantação!
             </div>
+
+            <div class="form-group">
+                <label for="cultura">O que você vai plantar?</label>
+                <select id="cultura">
+                    <option value="Soja">Soja</option>
+                    <option value="Milho">Milho</option>
+                    <option value="Trigo">Trigo</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="area">Tamanho da área (Hectares):</label>
+                <input type="number" id="area" placeholder="Ex: 50">
+            </div>
+
+            <button class="btn-simular" onclick="calcular()">Calcular Impacto</button>
+
+            <div id="resultado"></div>
+        </div>
     </div>
+
+    <script>
+        function calcular() {
+            const area = document.getElementById('area').value;
+            const cultura = document.getElementById('cultura').value;
+            const resDiv = document.getElementById('resultado');
+
+            if (area > 0) {
+                // Cálculo fictício: 400 litros economizados por hectare
+                const economia = area * 400;
+                resDiv.style.display = "block";
+                resDiv.innerHTML = `
+                    <h3 style="color: var(--verde-floresta); margin-top:0;">📊 Resultado</h3>
+                    <p>Ao usar tecnologia na sua plantação de <strong>${cultura}</strong> em <strong>${area} hectares</strong>, 
+                    você pode economizar até <strong>${economia.toLocaleString()} litros</strong> de água!</p>
+                `;
+            } else {
+                alert("Por favor, insira um valor de área válido.");
+            }
+        }
+    </script>
 
 </body>
 </html>
