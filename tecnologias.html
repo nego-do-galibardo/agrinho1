@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecnologias Agrícolas | Agrinho</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --amarelo-ouro: #FFD700;
+            --verde-floresta: #013220;
+            --branco: #FFFFFF;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: var(--verde-floresta);
+            color: var(--amarelo-ouro);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--amarelo-ouro);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--verde-floresta);
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid var(--verde-floresta);
+            padding: 8px 20px;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        .btn-voltar:hover {
+            background: var(--verde-floresta);
+            color: var(--amarelo-ouro);
+        }
+
+        /* Estilo das Tecnologias */
+        .tech-card {
+            background: var(--branco);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+        }
+
+        .tech-img {
+            flex: 1;
+            min-width: 300px;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .tech-info {
+            flex: 1.5;
+            padding: 30px;
+            min-width: 300px;
+        }
+
+        .tech-info h2 {
+            color: var(--verde-floresta);
+            margin-top: 0;
+            border-bottom: 3px solid var(--amarelo-ouro);
+            display: inline-block;
+        }
+
+        .tech-info p {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--verde-floresta);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Tecnologia no Campo</h1>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="btn-voltar">← Voltar para o Início</a>
+
+        <div class="tech-card">
+            <div class="tech-img" style="background-image: url('https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=800');"></div>
+            <div class="tech-info">
+                <h2>Drones Agrícolas</h2>
+                <p><strong>O que fazem?</strong> Eles sobrevoam a plantação tirando fotos de alta resolução. <br><br>
+                <strong>Explicadinho:</strong> Com essas fotos, o produtor consegue ver onde as plantas estão doentes ou precisando de água antes mesmo do olho humano perceber!</p>
+            </div>
+        </div>
+
+        <div class="tech-card">
+            <div class="tech-img" style="background-image: url('https://images.unsplash.com/photo-1530840632619-3c29046184b9?q=80&w=800');"></div>
+            <div class="tech-info">
+                <h2>GPS e Piloto Automático</h2>
+                <p><strong>O que fazem?</strong> Tratores guiados por satélite que andam sozinhos em linhas perfeitas.<br><br>
+                <strong>Explicadinho:</strong> Isso evita que o trator passe duas vezes no mesmo lugar, economizando combustível e sementes. É precisão pura!</p>
+            </div>
+        </div>
+
+        <div class="tech-card">
+            <div class="tech-img" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800');"></div>
+            <div class="tech-info">
+                <h2>Sensores de Umidade</h2>
+                <p><strong>O que fazem?</strong> Pequenos aparelhos instalados embaixo da terra que medem a água.<br><br>
+                <strong>Explicadinho:</strong> Eles avisam o celular do agricultor quando a terra está seca. Assim, ele só irriga quando é realmente necessário, protegendo o meio ambiente.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Agrinho 2024 - O Futuro é Agro</p>
+    </footer>
+
+</body>
+</html>
