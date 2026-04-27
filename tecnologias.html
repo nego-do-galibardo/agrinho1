@@ -9,6 +9,7 @@
         :root {
             --amarelo-ouro: #FFD700;
             --verde-floresta: #013220;
+            --verde-campo: #2E7D32;
             --branco: #FFFFFF;
         }
 
@@ -20,27 +21,34 @@
         }
 
         header {
-            background: var(--verde-floresta);
+            background: linear-gradient(135deg, var(--verde-floresta), var(--verde-campo));
             color: var(--amarelo-ouro);
-            padding: 40px 20px;
+            padding: 50px 20px;
             text-align: center;
-            border-bottom: 5px solid var(--amarelo-ouro);
+            border-bottom: 8px solid var(--amarelo-ouro);
+        }
+
+        header h1 {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .container {
             max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
         .btn-voltar {
             display: inline-block;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             color: var(--verde-floresta);
             text-decoration: none;
             font-weight: bold;
             border: 2px solid var(--verde-floresta);
-            padding: 8px 20px;
+            padding: 10px 25px;
             border-radius: 50px;
             transition: 0.3s;
         }
@@ -50,48 +58,77 @@
             color: var(--amarelo-ouro);
         }
 
-        /* Estilo das Tecnologias */
+        /* Tech Cards */
         .tech-card {
             background: var(--branco);
-            border-radius: 15px;
-            margin-bottom: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
             display: flex;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            flex-wrap: wrap;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .tech-card:hover {
+            transform: scale(1.01);
         }
 
         .tech-img {
             flex: 1;
-            min-width: 300px;
-            height: 250px;
+            min-width: 350px;
+            height: 300px;
             background-size: cover;
             background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .tech-card:hover .tech-img {
+            transform: scale(1.1); /* Efeito de zoom na imagem */
         }
 
         .tech-info {
             flex: 1.5;
-            padding: 30px;
+            padding: 40px;
             min-width: 300px;
+            background: white;
+            z-index: 1;
         }
 
         .tech-info h2 {
             color: var(--verde-floresta);
             margin-top: 0;
-            border-bottom: 3px solid var(--amarelo-ouro);
+            font-family: 'Montserrat', sans-serif;
+            border-bottom: 4px solid var(--amarelo-ouro);
             display: inline-block;
+            padding-bottom: 5px;
         }
 
         .tech-info p {
-            line-height: 1.6;
-            color: #555;
+            line-height: 1.8;
+            color: #444;
+            font-size: 1rem;
+        }
+
+        strong {
+            color: var(--verde-campo);
         }
 
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             background: var(--verde-floresta);
             color: white;
+            margin-top: 50px;
+        }
+
+        /* Ajuste para Celulares */
+        @media (max-width: 768px) {
+            .tech-card {
+                flex-direction: column;
+            }
+            .tech-img {
+                min-width: 100%;
+            }
         }
     </style>
 </head>
@@ -99,6 +136,7 @@
 
     <header>
         <h1>Tecnologia no Campo</h1>
+        <p style="color: white; font-weight: 600;">A evolução digital na palma da mão do produtor.</p>
     </header>
 
     <div class="container">
@@ -108,8 +146,8 @@
             <div class="tech-img" style="background-image: url('https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=800');"></div>
             <div class="tech-info">
                 <h2>Drones Agrícolas</h2>
-                <p><strong>O que fazem?</strong> Eles sobrevoam a plantação tirando fotos de alta resolução. <br><br>
-                <strong>Explicadinho:</strong> Com essas fotos, o produtor consegue ver onde as plantas estão doentes ou precisando de água antes mesmo do olho humano perceber!</p>
+                <p><strong>O que fazem?</strong> Eles sobrevoam a plantação tirando fotos de alta resolução e até aplicando defensivos em locais específicos. <br><br>
+                <strong>Explicadinho:</strong> Com essas fotos, o produtor consegue identificar pragas ou falta de nutrientes antes mesmo delas se espalharem, economizando tempo e dinheiro!</p>
             </div>
         </div>
 
@@ -117,24 +155,24 @@
             <div class="tech-img" style="background-image: url('https://images.unsplash.com/photo-1530840632619-3c29046184b9?q=80&w=800');"></div>
             <div class="tech-info">
                 <h2>GPS e Piloto Automático</h2>
-                <p><strong>O que fazem?</strong> Tratores guiados por satélite que andam sozinhos em linhas perfeitas.<br><br>
-                <strong>Explicadinho:</strong> Isso evita que o trator passe duas vezes no mesmo lugar, economizando combustível e sementes. É precisão pura!</p>
+                <p><strong>O que fazem?</strong> Sistemas de satélite que guiam tratores e colheitadeiras com margem de erro de poucos centímetros.<br><br>
+                <strong>Explicadinho:</strong> Isso evita que o maquinário passe duas vezes no mesmo lugar (o famoso "pisoteio"), o que preserva o solo e evita o desperdício de combustível.</p>
             </div>
         </div>
 
         <div class="tech-card">
             <div class="tech-img" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800');"></div>
             <div class="tech-info">
-                <h2>Sensores de Umidade</h2>
-                <p><strong>O que fazem?</strong> Pequenos aparelhos instalados embaixo da terra que medem a água.<br><br>
-                <strong>Explicadinho:</strong> Eles avisam o celular do agricultor quando a terra está seca. Assim, ele só irriga quando é realmente necessário, protegendo o meio ambiente.</p>
+                <h2>Sensores de Solo (IoT)</h2>
+                <p><strong>O que fazem?</strong> Sensores conectados à internet que monitoram a terra 24 horas por dia.<br><br>
+                <strong>Explicadinho:</strong> Eles avisam direto no celular quando a planta precisa de água ou adubo. É a tecnologia garantindo que nada seja usado em excesso, protegendo o planeta!</p>
             </div>
         </div>
 
     </div>
 
     <footer>
-        <p>Agrinho 2024 - O Futuro é Agro</p>
+        <p>Desenvolvido para o Agrinho 2024 - Conectando o Campo ao Futuro</p>
     </footer>
 
 </body>
