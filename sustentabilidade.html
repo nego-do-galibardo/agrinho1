@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustentabilidade | Agrinho</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --amarelo-ouro: #FFD700;
+            --verde-floresta: #013220;
+            --branco: #FFFFFF;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: var(--verde-floresta);
+            color: var(--amarelo-ouro);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--amarelo-ouro);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--verde-floresta);
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid var(--verde-floresta);
+            padding: 8px 20px;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        .btn-voltar:hover {
+            background: var(--verde-floresta);
+            color: var(--amarelo-ouro);
+        }
+
+        .info-card {
+            background: var(--branco);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 10px solid var(--verde-floresta);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 { color: var(--verde-floresta); font-family: 'Montserrat'; }
+        
+        .destaque-ouro {
+            color: #b8860b;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Sustentabilidade no Campo</h1>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="btn-voltar">← Voltar para o Início</a>
+
+        <div class="info-card">
+            <h2>Rotação de Culturas</h2>
+            <p><strong>Explicadinho:</strong> Em vez de plantar sempre a mesma coisa, o agricultor muda o tipo de planta a cada safra. <br><br>
+            <span class="destaque-ouro">Por que é bom?</span> Isso deixa o solo mais forte e evita que pragas se acostumem com a plantação, diminuindo a necessidade de remédios químicos.</p>
+        </div>
+
+        <div class="info-card">
+            <h2>Plantio Direto</h2>
+            <p><strong>Explicadinho:</strong> É quando o agricultor planta a nova semente em cima dos restos da plantação antiga, sem revirar a terra.<br><br>
+            <span class="destaque-ouro">Por que é bom?</span> A palha protege o chão como se fosse um cobertor, mantendo a umidade e evitando que a chuva leve a terra embora (erosão).</p>
+        </div>
+
+        <div class="info-card">
+            <h2>Preservação de Nascentes</h2>
+            <p><strong>Explicadinho:</strong> Manter as árvores e a vegetação nativa em volta de onde a água brota da terra.<br><br>
+            <span class="destaque-ouro">Por que é bom?</span> As raízes das árvores filtram a água e garantem que o rio nunca seque, mantendo a vida de todos os animais e das pessoas.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
