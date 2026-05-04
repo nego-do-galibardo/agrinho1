@@ -48,11 +48,13 @@
 
         .btn-voltar:hover { transform: scale(1.05); background: var(--amarelo-ouro); }
 
-        /* GRID DE QUADRINHOS */
+        /* GRID DE QUADRINHOS CENTRALIZADO */
         .grid-sustentavel {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            /* Definimos um tamanho máximo de 350px para evitar que os cards estiquem demais e percam o centro */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 350px)); 
             gap: 20px;
+            justify-content: center; /* ESTA LINHA CENTRALIZA OS CARDS */
         }
 
         .card-sustentavel {
