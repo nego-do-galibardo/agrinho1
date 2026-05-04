@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tecnologias | Agrinho</title>
+    <title>Tecnologias 4.0 | Agrinho</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,12 +11,25 @@
             --verde-floresta: #013220;
             --verde-campo: #2E7D32;
             --branco: #FFFFFF;
+            --bg-site: #f4f4f4;
+            --texto: #333333;
+            --bg-tag: #e8f5e9;
+        }
+
+        body.dark-mode {
+            --bg-site: #121212;
+            --branco: #1e1e1e;
+            --texto: #f4f4f4;
+            --verde-floresta: #000000;
+            --bg-tag: #2e3d2e;
         }
 
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background-color: #f4f4f4;
+            background-color: var(--bg-site);
+            color: var(--texto);
+            transition: 0.3s;
         }
 
         header {
@@ -36,7 +49,7 @@
         .btn-voltar {
             display: inline-block;
             background: var(--branco);
-            color: var(--verde-floresta);
+            color: var(--verde-campo);
             text-decoration: none;
             padding: 10px 25px;
             border-radius: 50px;
@@ -46,13 +59,12 @@
             transition: 0.3s;
         }
 
-        .btn-voltar:hover { transform: scale(1.05); background: var(--amarelo-ouro); }
+        .btn-voltar:hover { transform: scale(1.05); background: var(--amarelo-ouro); color: var(--verde-floresta); }
 
-        /* GRID DE QUADRINHOS */
         .grid-tech {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            gap: 25px;
         }
 
         .card-tech {
@@ -61,48 +73,27 @@
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             transition: 0.3s;
-            border-bottom: 5px solid var(--verde-floresta);
+            display: flex;
+            flex-direction: column;
+            border-bottom: 5px solid var(--verde-campo);
         }
 
         .card-tech:hover { transform: translateY(-10px); border-color: var(--amarelo-ouro); }
 
-        .img-box {
-            height: 180px;
-            background-size: cover;
-            background-position: center;
-        }
+        .img-box { height: 180px; background-size: cover; background-position: center; }
 
-        .info-box { padding: 20px; }
+        .info-box { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
 
         .info-box h2 {
             margin: 0 0 10px 0;
             font-size: 1.2rem;
-            color: var(--verde-floresta);
+            color: var(--verde-campo);
             font-family: 'Montserrat', sans-serif;
-        }
-
-        .info-box ul {
-            padding: 0;
-            list-style: none;
-            margin: 0;
-        }
-
-        .info-box li {
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-        }
-
-        .info-box li::before {
-            content: '✅';
-            margin-right: 8px;
-            font-size: 0.8rem;
         }
 
         .tag {
             display: inline-block;
-            background: #e8f5e9;
+            background: var(--bg-tag);
             color: var(--verde-campo);
             padding: 4px 10px;
             border-radius: 5px;
@@ -111,43 +102,67 @@
             margin-bottom: 10px;
             text-transform: uppercase;
         }
+
+        .btn-saiba-mais {
+            display: block;
+            text-align: center;
+            background: var(--verde-campo);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-top: auto;
+            transition: 0.3s;
+        }
+
+        .btn-saiba-mais:hover { background: var(--amarelo-ouro); color: var(--verde-floresta); }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--verde-campo);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1 style="margin:0">TECNOLOGIAS 4.0</h1>
-        <p style="color:white">Rápido, prático e inovador.</p>
+        <h1 style="margin:0; font-family: 'Montserrat';">TECNOLOGIAS 4.0</h1>
+        <p style="color:white">Inovação a serviço da produtividade sustentável.</p>
     </header>
 
     <div class="container">
-        <a href="index.html" class="btn-voltar">← Voltar</a>
+        <a href="index.html" class="btn-voltar">← Voltar ao Início</a>
 
         <div class="grid-tech">
-            
             <div class="card-tech">
                 <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=500');"></div>
                 <div class="info-box">
-                    <span class="tag">Monitoramento</span>
+                    <span class="tag">Sensoriamento Remoto</span>
                     <h2>Drones Inteligentes</h2>
-                    <ul>
-                        <li>Mapeia pragas em minutos</li>
-                        <li>Pulveriza com precisão</li>
-                        <li>Fotos em 4K do campo</li>
-                    </ul>
+                    <p>Mapeamento de saúde da lavoura via índices de vegetação.</p>
+                    <a href="detalhes-drones.html" class="btn-saiba-mais">Ver Fluxo Técnico</a>
                 </div>
             </div>
 
             <div class="card-tech">
                 <div class="img-box" style="background-image: url('https://blog.agrointeli.com.br/blog/wp-content/uploads/2020/07/gps_agricola.jpg');"></div>
                 <div class="info-box">
-                    <span class="tag">Maquinário</span>
+                    <span class="tag">Mecanização</span>
                     <h2>GPS Agrícola</h2>
-                    <ul>
-                        <li>Piloto automático via satélite</li>
-                        <li>Zero desperdício de diesel</li>
-                        <li>Linhas de plantio perfeitas</li>
-                    </ul>
+                    <p>Piloto automático e precisão centimétrica no campo.</p>
+                    <a href="detalhes-gps.html" class="btn-saiba-mais">Ver Fluxo Técnico</a>
                 </div>
             </div>
 
@@ -156,29 +171,35 @@
                 <div class="info-box">
                     <span class="tag">Internet das Coisas</span>
                     <h2>Sensores de Solo</h2>
-                    <ul>
-                        <li>Mede a umidade em tempo real</li>
-                        <li>Economiza 40% de água</li>
-                        <li>Aviso direto no WhatsApp</li>
-                    </ul>
+                    <p>Monitoramento de umidade e nutrientes em tempo real.</p>
+                    <a href="detalhes-sensores.html" class="btn-saiba-mais">Ver Fluxo Técnico</a>
                 </div>
             </div>
 
             <div class="card-tech">
                 <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1558449028-b53a39d100fc?q=80&w=500');"></div>
                 <div class="info-box">
-                    <span class="tag">Dados</span>
-                    <h2>Apps de Clima</h2>
-                    <ul>
-                        <li>Previsão exata da chuva</li>
-                        <li>Melhor hora para adubar</li>
-                        <li>Histórico de temperatura</li>
-                    </ul>
+                    <span class="tag">Inteligência de Dados</span>
+                    <h2>Big Data Climático</h2>
+                    <p>Previsão meteorológica avançada para tomada de decisão.</p>
+                    <a href="detalhes-clima.html" class="btn-saiba-mais">Ver Fluxo Técnico</a>
                 </div>
             </div>
-
         </div>
     </div>
 
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('agrinho-theme', isDark ? 'dark' : 'light');
+        }
+
+        if (localStorage.getItem('agrinho-theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
 </body>
 </html>
