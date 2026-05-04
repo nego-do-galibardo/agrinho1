@@ -1,78 +1,86 @@
+/* 1. DEFINIÇÃO DAS CORES (VARIÁVEIS) */
+:root {
+    --bg-body: #f4f9f4;
+    --bg-card: #ffffff;
+    --texto: #333333;
+    --borda: #dddddd;
+    --bg-resultado: #e8f5e9;
+    --primaria: #2e7d32;
+    --transicao: 0.3s;
+}
+
+/* 2. CORES DO MODO ESCURO 
+   O seletor :has verifica se o checkbox está marcado */
+body:has(#dark-mode-cb:checked) {
+    --bg-body: #121212;
+    --bg-card: #1e1e1e;
+    --texto: #f4f4f4;
+    --borda: #444444;
+    --bg-resultado: #1b2e1b;
+}
+
+/* 3. APLICAÇÃO NO SEU CÓDIGO */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    background-color: #f4f9f4;
-    color: #333;
+    background-color: var(--bg-body);
+    color: var(--texto);
+    transition: background var(--transicao), color var(--transicao);
 }
 
 header {
-    background-color: #2e7d32;
+    background-color: var(--primaria);
     color: white;
     padding: 1rem;
     text-align: center;
 }
 
-nav a {
+/* Esconde o checkbox real */
+#dark-mode-cb {
+    display: none;
+}
+
+/* Estilo do botão (Label que controla o checkbox) */
+.botao-tema {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--primaria);
     color: white;
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+    font-size: 1.5rem;
+    user-select: none;
 }
 
-.container {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-}
-
-.grid-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.card {
-    background: white;
+.card, .simulator-box {
+    background: var(--bg-card);
     border-radius: 8px;
-    overflow: hidden;
+    padding: 20px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: 0.3s;
+    transition: var(--transicao);
 }
 
-.card img { width: 100%; height: 200px; object-fit: cover; }
-
-.card:hover { transform: translateY(-5px); }
-
-.simulator-box {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-}
-
-.input-group { margin-bottom: 20px; }
-
-select, button {
+select {
     padding: 10px;
     width: 100%;
-    margin-top: 5px;
+    background-color: var(--bg-card);
+    color: var(--texto);
+    border: 1px solid var(--borda);
     border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-button {
-    background-color: #2e7d32;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
 }
 
 .result-visible {
     margin-top: 20px;
     padding: 15px;
-    background: #e8f5e9;
-    border-left: 5px solid #2e7d32;
+    background: var(--bg-resultado);
+    border-left: 5px solid var(--primaria);
+    color: var(--texto);
 }
-
-.result-hidden { display: none; }
