@@ -1,78 +1,122 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    background-color: #f4f9f4;
-    color: #333;
-}
+<style>
+    :root {
+        --amarelo-ouro: #FFD700;
+        --verde-floresta: #013220;
+        --verde-campo: #2E7D32;
+        --branco: #FFFFFF;
+    }
 
-header {
-    background-color: #2e7d32;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-}
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background-color: #f4f4f4;
+    }
 
-nav a {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
-}
+    header {
+        background: linear-gradient(135deg, var(--verde-floresta), var(--verde-campo));
+        color: var(--amarelo-ouro);
+        padding: 60px 20px;
+        text-align: center;
+        border-bottom: 8px solid var(--amarelo-ouro);
+    }
 
-.container {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-}
+    .container {
+        max-width: 1200px;
+        margin: -40px auto 50px;
+        padding: 0 20px;
+        /* Garante que o container interno também tente centralizar o conteúdo */
+        display: flex;
+        flex-direction: column;
+    }
 
-.grid-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
+    .btn-voltar {
+        align-self: flex-start; /* Mantém o botão na esquerda */
+        display: inline-block;
+        background: var(--branco);
+        color: var(--verde-floresta);
+        text-decoration: none;
+        padding: 10px 25px;
+        border-radius: 50px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: 0.3s;
+    }
 
-.card {
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: 0.3s;
-}
+    .btn-voltar:hover { transform: scale(1.05); background: var(--amarelo-ouro); }
 
-.card img { width: 100%; height: 200px; object-fit: cover; }
+    /* GRID TOTALMENTE CENTRALIZADO */
+    .grid-sustentavel {
+        display: grid;
+        /* Usamos auto-fill e um tamanho fixo máximo (320px) para forçar a centralização */
+        grid-template-columns: repeat(auto-fill, 320px); 
+        gap: 25px;
+        justify-content: center; /* Centraliza o grid dentro do container */
+        width: 100%;
+    }
 
-.card:hover { transform: translateY(-5px); }
+    .card-sustentavel {
+        background: var(--branco);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: 0.3s;
+        border-bottom: 5px solid var(--verde-floresta);
+        display: flex;
+        flex-direction: column;
+        width: 320px; /* Tamanho fixo para manter a simetria */
+    }
 
-.simulator-box {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-}
+    .card-sustentavel:hover { 
+        transform: translateY(-10px); 
+        border-color: var(--amarelo-ouro); 
+    }
 
-.input-group { margin-bottom: 20px; }
+    .img-box {
+        height: 160px;
+        background-size: cover;
+        background-position: center;
+    }
 
-select, button {
-    padding: 10px;
-    width: 100%;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
+    .info-box { padding: 20px; flex-grow: 1; }
 
-button {
-    background-color: #2e7d32;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
-}
+    .info-box h2 {
+        margin: 0 0 10px 0;
+        font-size: 1.1rem;
+        color: var(--verde-floresta);
+        font-family: 'Montserrat', sans-serif;
+        text-transform: uppercase;
+    }
 
-.result-visible {
-    margin-top: 20px;
-    padding: 15px;
-    background: #e8f5e9;
-    border-left: 5px solid #2e7d32;
-}
+    .info-box ul {
+        padding: 0;
+        list-style: none;
+        margin: 0;
+    }
 
-.result-hidden { display: none; }
+    .info-box li {
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+        color: #444;
+        display: flex;
+        align-items: center;
+    }
+
+    .info-box li::before {
+        content: '🌿';
+        margin-right: 8px;
+        font-size: 0.7rem;
+    }
+
+    .tag {
+        display: inline-block;
+        background: #e8f5e9;
+        color: var(--verde-campo);
+        padding: 4px 10px;
+        border-radius: 5px;
+        font-size: 0.65rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+</style>
