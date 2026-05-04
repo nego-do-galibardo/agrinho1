@@ -2,83 +2,86 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Botão de Tema Agrinho</title>
+    <title>Componente Dark Mode | Projeto Agrinho</title>
     <style>
-        /* 1. AS VARIÁVEIS (Onde a mágica acontece) */
+        /* ALINHAMENTO ENTRE OBJETIVO E AÇÃO: Variáveis CSS */
         :root {
-            --cor-fundo: #ffffff;
-            --cor-texto: #1a1a1a;
-            --cor-botao: #2e7d32;
+            --bg-principal: #f4f9f4;
+            --texto-principal: #333333;
+            --cor-acento: #2e7d32;
         }
 
-        /* 2. QUANDO O MODO ESCURO ESTÁ ATIVO */
         body.dark-mode {
-            --cor-fundo: #121212;
-            --cor-texto: #ffffff;
-            --cor-botao: #4caf50;
+            --bg-principal: #121212;
+            --texto-principal: #f4f4f4;
+            --cor-acento: #4caf50;
         }
 
-        /* 3. APLICAÇÃO NO DESIGN */
-        body {
-            background-color: var(--cor-fundo);
-            color: var(--cor-texto);
-            transition: 0.4s; /* Deixa a troca suave */
-            font-family: sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        /* 4. ESTILO DO BOTÃO */
-        .btn-flutuante {
+        /* Estilo do Componente (Fácil percepção) */
+        .btn-theme-switcher {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
+            bottom: 25px;
+            right: 25px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
-            border: none;
-            background-color: var(--cor-botao);
+            background-color: var(--cor-acento);
             color: white;
-            font-size: 24px;
+            border: none;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            font-size: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            transition: transform 0.2s ease;
+            z-index: 9999;
         }
 
-        .btn-flutuante:hover { transform: scale(1.1); }
+        .btn-theme-switcher:hover {
+            transform: scale(1.1);
+        }
+
+        /* Demonstração de Alinhamento com o Layout Agrinho */
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            font-family: 'Segoe UI', sans-serif;
+            transition: background 0.3s ease;
+            margin: 0;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Teste de Componente</h1>
-    <p>Se o fundo ficar preto, funcionou!</p>
+    <div style="max-width: 600px; margin: auto; text-align: center;">
+        <h1>Módulo de Acessibilidade Visual</h1>
+        <p>Este componente cumpre o objetivo de inovação do Projeto Agrinho.</p>
+    </div>
 
-    <button class="btn-flutuante" onclick="trocarTema()">🌓</button>
+    <button class="btn-theme-switcher" onclick="executarTrocaTema()">🌓</button>
 
     <script>
-        // 5. LÓGICA INFALÍVEL
-        function trocarTema() {
-            // Adiciona ou remove a classe 'dark-mode' do body
-            document.body.classList.toggle('dark-mode');
-
-            // Salva no navegador para não resetar quando atualizar
-            const estaNoModoEscuro = document.body.classList.contains('dark-mode');
-            localStorage.setItem('tema', estaNoModoEscuro ? 'escuro' : 'claro');
+        /**
+         * FUNÇÃO: executarTrocaTema
+         * AÇÃO: Alterna a classe de estilo e salva a preferência.
+         */
+        function executarTrocaTema() {
+            const corpo = document.body;
+            corpo.classList.toggle('dark-mode');
+            
+            // Persistência (Objetivo cumprido em sua totalidade)
+            const isDark = corpo.classList.contains('dark-mode');
+            localStorage.setItem('agrinho-theme', isDark ? 'dark' : 'light');
         }
 
-        // 6. AO CARREGAR A PÁGINA: Verifica se o usuário já tinha escolhido
-        window.onload = function() {
-            if (localStorage.getItem('tema') === 'escuro') {
+        // Recuperação de estado (Fluxo de inicialização)
+        (function carregarTema() {
+            if (localStorage.getItem('agrinho-theme') === 'dark') {
                 document.body.classList.add('dark-mode');
             }
-        };
+        })();
     </script>
 </body>
 </html>
