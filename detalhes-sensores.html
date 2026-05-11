@@ -2,30 +2,33 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Sensores e Transdutores</title>
+    <title>Sensores - Engenharia</title>
     <style>
-        body { font-family: Georgia, serif; line-height: 1.8; color: #222; max-width: 800px; margin: auto; }
-        .sensor-box { border: 2px solid #444; padding: 20px; margin-bottom: 25px; }
-        .tech-detail { font-size: 0.9em; color: #555; font-style: italic; }
-        img.placeholder { width: 100%; filter: grayscale(100%); transition: 0.3s; }
-        img.placeholder:hover { filter: grayscale(0%); }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #e0e0e0; max-width: 1000px; margin: 0 auto; padding: 20px; background-color: #121212; }
+        .hero-img { width: 100%; height: 350px; overflow: hidden; border-radius: 15px; margin-bottom: 25px; border: 1px solid #333; }
+        .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+        h1 { color: #32cd32; border-bottom: 2px solid #32cd32; padding-bottom: 10px; }
+        h2 { color: #32cd32; margin-top: 30px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 20px; }
+        .card { background: #1e1e1e; padding: 20px; border-radius: 12px; border-bottom: 4px solid #32cd32; }
+        strong { color: #32cd32; }
     </style>
 </head>
 <body>
-    <h1>Arquitetura de Sensores Inteligentes</h1>
-    
-    <div class="sensor-box">
-        <h2>Sensores LiDAR (Light Detection and Ranging)</h2>
-        <p>O LiDAR emite pulsos de laser infravermelho e mede o tempo de retorno após atingir um objeto (Time of Flight). Isso permite a criação de <strong>nuvens de pontos 3D</strong> extremamente precisas do ambiente.</p>
-        <p class="tech-detail">Aplicações: Veículos autônomos e mapeamento topográfico denso.</p>
+    <h1>Sensores e Aquisição de Dados</h1>
+    <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000" alt="Placa de circuito">
     </div>
-
-    <div class="sensor-box">
-        <h2>Sensores Ultrassônicos</h2>
-        <p>Operando em frequências acima de 20kHz, esses sensores utilizam a reflexão de ondas sonoras. São ideais para detectar objetos transparentes ou líquidos, onde sensores ópticos podem falhar.</p>
+    <p>A transdução é o processo de converter uma grandeza física em sinal elétrico. Através de protocolos como <strong>I2C ou SPI</strong>, os dados são enviados para o processador central.</p>
+    <div class="grid">
+        <div class="card">
+            <h2>LiDAR e Varredura</h2>
+            <p>O sensor LiDAR utiliza pulsos de laser infravermelho para gerar uma <strong>nuvem de pontos</strong> em alta resolução, essencial para evitar obstáculos em velocidades elevadas.</p>
+        </div>
+        <div class="card">
+            <h2>Conversão ADC</h2>
+            <p>Conversores Analógico-Digitais de alta resolução (12 a 16 bits) garantem que a sensibilidade do sensor capture as menores variações do ambiente físico.</p>
+        </div>
     </div>
-
-    <h2>Processamento de Sinais: Do Analógico ao Digital (ADC)</h2>
-    <p>A maioria dos sensores captura grandezas físicas analógicas (voltagem variável). Para que um microprocessador entenda esses dados, eles passam por um <strong>Conversor Analógico-Digital (ADC)</strong>. A precisão depende da <em>resolução em bits</em> (ex: 10 bits = 1024 níveis de gradação) e da <em>taxa de amostragem</em>.</p>
 </body>
 </html>
