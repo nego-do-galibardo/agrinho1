@@ -2,27 +2,29 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Documentação: GPS | Agrinho</title>
+    <title>Sistemas de Posicionamento Global</title>
     <style>
-        :root { --bg: #f4f4f4; --card: #ffffff; --texto: #333; --verde: #2e7d32; }
-        body.dark-mode { --bg: #121212; --card: #1e1e1e; --texto: #f4f4f4; --verde: #4caf50; }
-        body { font-family: sans-serif; background: var(--bg); color: var(--texto); padding: 40px; transition: 0.3s; }
-        .container { max-width: 800px; margin: auto; background: var(--card); padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .fluxo { background: rgba(46, 125, 50, 0.1); padding: 20px; border-left: 5px solid var(--verde); margin: 20px 0; }
-        .btn-voltar { color: var(--verde); text-decoration: none; font-weight: bold; display: inline-block; margin-bottom: 20px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.7; padding: 40px; background: #f4f7f6; }
+        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .diagram { width: 100%; border: 1px dashed #ccc; margin: 20px 0; text-align: center; padding: 40px; background: #fff; }
+        code { background: #eee; padding: 2px 5px; border-radius: 4px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="tecnologias.html" class="btn-voltar">← Voltar</a>
-        <h1>GPS Agrícola e Piloto Automático</h1>
-        <p>A tecnologia GNSS (GPS) permite que tratores operem com precisão centimétrica via RTK.</p>
-        <div class="fluxo">
-            <strong>Fluxo de Trabalho:</strong><br>
-            1. Sincronização via Satélite → 2. Correção de sinal via base terrestre → 3. Atuação no sistema hidráulico → 4. Plantio em linhas perfeitas sem sobreposição.
+        <h1>Geolocalização e Constelações Satelitais</h1>
+        
+        <p>O GPS (Global Positioning System) não "envia" sinais para os satélites; ele é um sistema passivo de recepção. O receptor calcula sua posição baseando-se no tempo que o sinal leva para viajar do satélite até a Terra à velocidade da luz.</p>
+
+        <div class="diagram">
+            <p><em>Esquema de Trilateração Espacial</em></p>
         </div>
-        <p>Isso reduz o desperdício de combustível e sementes em até 15%.</p>
+
+        <h2>O Conceito de Trilateração</h2>
+        <p>Para determinar uma longitude e latitude (2D), são necessários 3 satélites. Para determinar a altitude (3D), um 4º satélite é indispensável. Cada satélite transmite uma "mensagem de navegação" que inclui sua posição exata (Efemérides) e o horário preciso do envio.</p>
+
+        <h2>RTK (Real-Time Kinematic)</h2>
+        <p>Para aplicações que exigem precisão centimétrica (como agricultura de precisão), utiliza-se o <strong>RTK</strong>. Ele usa uma estação base fixa para corrigir os erros introduzidos pela ionosfera e troposfera terrestre, enviando correções em tempo real para o dispositivo móvel.</p>
     </div>
-    <script>if(localStorage.getItem('agrinho-theme')==='dark') document.body.classList.add('dark-mode');</script>
 </body>
 </html>
