@@ -2,27 +2,30 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Documentação: Sensores | Agrinho</title>
+    <title>Sensores e Transdutores</title>
     <style>
-        :root { --bg: #f4f4f4; --card: #ffffff; --texto: #333; --verde: #2e7d32; }
-        body.dark-mode { --bg: #121212; --card: #1e1e1e; --texto: #f4f4f4; --verde: #4caf50; }
-        body { font-family: sans-serif; background: var(--bg); color: var(--texto); padding: 40px; transition: 0.3s; }
-        .container { max-width: 800px; margin: auto; background: var(--card); padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .fluxo { background: rgba(46, 125, 50, 0.1); padding: 20px; border-left: 5px solid var(--verde); margin: 20px 0; }
-        .btn-voltar { color: var(--verde); text-decoration: none; font-weight: bold; display: inline-block; margin-bottom: 20px; }
+        body { font-family: Georgia, serif; line-height: 1.8; color: #222; max-width: 800px; margin: auto; }
+        .sensor-box { border: 2px solid #444; padding: 20px; margin-bottom: 25px; }
+        .tech-detail { font-size: 0.9em; color: #555; font-style: italic; }
+        img.placeholder { width: 100%; filter: grayscale(100%); transition: 0.3s; }
+        img.placeholder:hover { filter: grayscale(0%); }
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="tecnologias.html" class="btn-voltar">← Voltar</a>
-        <h1>Sensores de Solo (IoT)</h1>
-        <p>Dispositivos enterrados que medem umidade, temperatura e condutividade em tempo real.</p>
-        <div class="fluxo">
-            <strong>Fluxo de Trabalho:</strong><br>
-            1. Captura de dados galvânicos no solo → 2. Transmissão via rádio (LoRa) → 3. Análise em nuvem → 4. Acionamento inteligente da irrigação.
-        </div>
-        <p>O objetivo é manter a planta em sua zona de conforto hídrico o tempo todo.</p>
+    <h1>Arquitetura de Sensores Inteligentes</h1>
+    
+    <div class="sensor-box">
+        <h2>Sensores LiDAR (Light Detection and Ranging)</h2>
+        <p>O LiDAR emite pulsos de laser infravermelho e mede o tempo de retorno após atingir um objeto (Time of Flight). Isso permite a criação de <strong>nuvens de pontos 3D</strong> extremamente precisas do ambiente.</p>
+        <p class="tech-detail">Aplicações: Veículos autônomos e mapeamento topográfico denso.</p>
     </div>
-    <script>if(localStorage.getItem('agrinho-theme')==='dark') document.body.classList.add('dark-mode');</script>
+
+    <div class="sensor-box">
+        <h2>Sensores Ultrassônicos</h2>
+        <p>Operando em frequências acima de 20kHz, esses sensores utilizam a reflexão de ondas sonoras. São ideais para detectar objetos transparentes ou líquidos, onde sensores ópticos podem falhar.</p>
+    </div>
+
+    <h2>Processamento de Sinais: Do Analógico ao Digital (ADC)</h2>
+    <p>A maioria dos sensores captura grandezas físicas analógicas (voltagem variável). Para que um microprocessador entenda esses dados, eles passam por um <strong>Conversor Analógico-Digital (ADC)</strong>. A precisão depende da <em>resolução em bits</em> (ex: 10 bits = 1024 níveis de gradação) e da <em>taxa de amostragem</em>.</p>
 </body>
 </html>
