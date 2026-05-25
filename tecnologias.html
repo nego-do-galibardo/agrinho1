@@ -41,7 +41,7 @@
         }
 
         .container {
-            max-width: 1400px; /* Aumentado para dar mais espaço lateral aos 5 quadros lado a lado */
+            max-width: 1400px;
             margin: -40px auto 50px;
             padding: 0 20px;
         }
@@ -61,12 +61,14 @@
 
         .btn-voltar:hover { transform: scale(1.05); background: var(--amarelo-ouro); color: var(--verde-floresta); }
 
-        /* ALTERAÇÃO AQUI: Alinhamento horizontal fluido */
+        /* Ajustado para balancear 4 quadros centralizados na horizontal */
         .grid-tech {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 25px;
             justify-content: center; 
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .card-tech {
@@ -154,16 +156,6 @@
         <a href="index.html" class="btn-voltar">← Voltar ao Início</a>
 
         <div class="grid-tech">
-            <div class="card-tech">
-                <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=500');"></div>
-                <div class="info-box">
-                    <span class="tag">Sensoriamento Remoto</span>
-                    <h2>Drones Inteligentes</h2>
-                    <p>Mapeamento de saúde da lavoura via índices de vegetação.</p>
-                    <a href="detalhes-drones.html" class="btn-saiba-mais">Ver Fluxo Técnico</a>
-                </div>
-            </div>
-
             <div class="card-tech">
                 <div class="img-box" style="background-image: url('https://blog.agrointeli.com.br/blog/wp-content/uploads/2020/07/gps_agricola.jpg');"></div>
                 <div class="info-box">
