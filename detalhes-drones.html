@@ -66,11 +66,14 @@
             border-left: 10px solid var(--amarelo-ouro);
         }
 
+        /* ALTERAÇÃO AQUI: Estilização da imagem reduzida e centralizada */
         .img-detalhe {
-            width: 100%;
-            height: auto;
+            display: block;
+            max-width: 500px; /* Define a largura máxima ideal para a imagem */
+            width: 100%;       /* Permite que ela se ajuste de forma responsiva em celulares */
+            height: auto;      /* Mantém a proporção correta para não distorcer */
+            margin: 0 auto 25px auto; /* Centraliza horizontalmente e dá espaçamento embaixo */
             border-radius: 15px;
-            margin-bottom: 20px;
             border: 2px solid var(--verde-campo);
         }
 
@@ -105,7 +108,7 @@
     </header>
 
     <div class="container">
-        <a href="javascript:history.back()" class="btn-voltar">← Voltar para Tecnologias</a>
+        <a href="tecnologias.html" class="btn-voltar">← Voltar para Tecnologias</a>
 
         <div class="conteudo-tecnico">
             <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=1000" alt="Drone sobrevoando plantação" class="img-detalhe">
