@@ -38,27 +38,31 @@
 
         .btn-voltar {
             display: inline-block;
-            background: var(--verde-campo);
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
+            background-color: transparent;
+            color: var(--verde-floresta);
+            border: 2px solid var(--verde-floresta);
+            padding: 8px 20px;
             border-radius: 50px;
+            text-decoration: none;
             font-weight: bold;
             margin-bottom: 20px;
             transition: 0.3s;
         }
 
-        .btn-voltar:hover { background: var(--amarelo-ouro); color: var(--verde-floresta); }
+        .btn-voltar:hover {
+            background-color: var(--verde-floresta);
+            color: var(--amarelo-ouro);
+        }
 
         .conteudo-tecnico {
             background: var(--branco);
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-top: 10px solid var(--amarelo-ouro); /* Borda no topo idêntica a sensores */
+            border-top: 10px solid var(--amarelo-ouro);
         }
 
-        /* Imagem centralizada e menor conforme o modelo de sensores */
+        /* Imagem no tamanho ideal e centralizada do modelo de sensores */
         .img-detalhe {
             display: block;
             max-width: 500px;
@@ -69,14 +73,25 @@
             border: 2px solid var(--verde-campo);
         }
 
-        h1, h2 { font-family: 'Montserrat', sans-serif; color: var(--verde-floresta); }
-        
-        h1 { margin-top: 0; font-size: 2.2rem; }
+        h1 {
+            color: var(--verde-floresta);
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 0;
+            font-size: 2.2rem;
+        }
 
-        .highlight {
-            color: var(--verde-campo);
-            font-weight: 600;
-            border-bottom: 2px solid var(--amarelo-ouro);
+        h2, h3 {
+            color: var(--verde-floresta);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .explicacao {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            border-left: 5px solid var(--verde-floresta);
         }
 
         .grid-info {
@@ -87,13 +102,13 @@
         }
 
         .info-card {
-            background: rgba(46, 125, 50, 0.1);
+            background-color: #fffde7;
             padding: 20px;
             border-radius: 10px;
-            border: 1px solid var(--verde-campo);
+            border: 2px solid var(--amarelo-ouro);
         }
 
-        /* Responsividade para telas de celulares */
+        /* Responsividade para celulares */
         @media (max-width: 600px) {
             .grid-info {
                 grid-template-columns: 1fr;
@@ -108,31 +123,35 @@
 
         <div class="conteudo-tecnico">
             <h1>Drones Inteligentes</h1>
-            <p style="color: #666; font-style: italic; margin-top: -10px; margin-bottom: 20px;">Agro Forte: Monitoramento de Precisão para um Futuro Sustentável</p>
+            
+            <div class="explicacao">
+                <strong>🛸 Agro Forte: Monitoramento de Precisão para um Futuro Sustentável</strong><br>
+                O uso de drones não é apenas sobre voar, mas sobre a coleta de dados massivos para a economia de recursos no campo.
+            </div>
             
             <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=1000" alt="Drone sobrevoando plantação" class="img-detalhe">
             
             <h2>Otimização de Insumos e Saúde Vegetal</h2>
-            <p>O uso de drones no <span class="highlight">Agro Forte</span> não é apenas sobre voar, mas sobre a coleta de dados massivos para a economia de recursos. Através de câmeras térmicas e multiespectrais, identificamos exatamente onde a planta precisa de água ou nutrientes.</p>
+            <p>Através de câmeras térmicas e multiespectrais avançadas, conseguimos identificar exatamente onde a planta precisa de intervenção, otimizando o manejo agrícola.</p>
 
             <div class="grid-info">
                 <div class="info-card">
-                    <h3 style="color: var(--verde-floresta); margin-top: 0;">Índice NDVI</h3>
-                    <p style="margin-bottom: 0;">Mapeamento do vigor vegetativo por infravermelho. Detecta pragas antes mesmo de serem visíveis ao olho humano.</p>
+                    <h3 style="margin-top: 0;">Índice NDVI</h3>
+                    <p style="margin-bottom: 0;">Mapeamento do vigor vegetativo por infravermelho. Detecta pragas e anomalias antes mesmo de serem visíveis ao olho humano.</p>
                 </div>
                 <div class="info-card">
-                    <h3 style="color: var(--verde-floresta); margin-top: 0;">Pulverização Spot</h3>
-                    <p style="margin-bottom: 0;">Aplicação localizada de defensivos. Redução de até 80% no desperdício de produtos químicos, protegendo o solo.</p>
+                    <h3 style="margin-top: 0;">Pulverização Spot</h3>
+                    <p style="margin-bottom: 0;">Aplicação localizada e cirúrgica de defensivos. Redução de até 80% no desperdício de insumos, protegendo a vida útil do solo.</p>
                 </div>
             </div>
 
             <h2 style="margin-top:40px;">Futuro Sustentável</h2>
-            <p>Ao reduzir o uso de diesel de tratores pesados e otimizar a aplicação de químicos, os drones garantem uma pegada de carbono muito menor e uma colheita mais limpa e produtiva.</p>
+            <p>Ao reduzir o uso de maquinário pesado movido a diesel e otimizar a distribuição de químicos, os drones garantem uma pegada de carbono muito menor e uma colheita limpa, rentável e produtiva.</p>
         </div>
     </div>
 
     <script>
-        // Mantém o modo escuro sincronizado se estiver ativo
+        // Sincroniza o Dark Mode se estiver ativo
         if (localStorage.getItem('agrinho-theme') === 'dark') {
             document.body.classList.add('dark-mode');
         }
