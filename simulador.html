@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador | Agrinho</title>
+    <title>Simulador MIP | Agrinho</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --amarelo-ouro: #FFD700;
             --verde-floresta: #013220;
+            --verde-campo: #2E7D32;
             --verde-suave: #e8f5e9;
+            --vermelho-alerta: #c62828;
         }
 
         body {
@@ -66,52 +68,64 @@
             border-left: 5px solid var(--verde-floresta);
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        /* Painel de Status do Jogo */
+        .status-painel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
         }
 
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--verde-floresta);
-        }
-
-        select, input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
+        .status-box {
+            background: #fcfcfc;
+            border: 1px solid #ddd;
+            padding: 15px;
             border-radius: 10px;
-            font-size: 1rem;
-            box-sizing: border-box;
+            text-align: center;
         }
 
-        .btn-simular {
-            background-color: var(--amarelo-ouro);
-            color: var(--verde-floresta);
+        .status-val {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--verde-campo);
+        }
+
+        /* Botões de Decisão */
+        .botoes-acoes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .btn-acao {
+            background-color: var(--verde-campo);
+            color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
+            padding: 15px;
+            font-size: 0.95rem;
             font-weight: bold;
             border-radius: 10px;
             cursor: pointer;
-            width: 100%;
-            text-transform: uppercase;
             transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        .btn-simular:hover {
-            background-color: var(--verde-floresta);
-            color: var(--amarelo-ouro);
-            transform: scale(1.02);
+        .btn-acao:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
         }
 
-        #resultado {
-            margin-top: 30px;
-            padding: 25px;
+        .btn-quimico { background-color: #37474f; }
+        .btn-biologico { background-color: var(--verde-campo); }
+        .btn-monitoramento { background-color: #0277bd; }
+
+        #resultado-rodada {
+            padding: 20px;
             border-radius: 10px;
             background-color: #fffde7;
             border: 2px solid var(--amarelo-ouro);
+            margin-bottom: 20px;
             display: none;
         }
 
@@ -124,72 +138,195 @@
             margin-bottom: 10px;
             display: inline-block;
         }
+
+        .btn-reiniciar {
+            background-color: var(--amarelo-ouro);
+            color: var(--verde-floresta);
+            border: none;
+            padding: 12px 25px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            display: none;
+            margin: 15px auto 0 auto;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <a href="index.html" class="btn-voltar">← Voltar ao Início</a>
+        <a href="tecnologias.html" class="btn-voltar">← Voltar para Tecnologias</a>
 
         <div class="card-principal">
-            <h1>Simulador de Sementes</h1>
+            <h1>Simulador MIP: Manejo Integrado de Pragas</h1>
             
             <div class="explicacao">
-                <strong>🌱 Planejamento Inteligente:</strong><br>
-                Descubra a quantidade ideal de sacos de sementes (60kg) para a sua área. O cálculo considera a média de densidade recomendada para cada cultura.
+                <strong>🐛 Alta Eficiência Biológica e Tecnológica:</strong><br>
+                Sua plantação está sofrendo ataques constantes de lagartas! O uso contínuo e exclusivo de veneno químico gera pragas resistentes e destrói o bolso do produtor. Equilibre suas estratégias para salvar a safra.
             </div>
 
-            <div class="form-group">
-                <label for="cultura">Qual cultura você deseja plantar?</label>
-                <select id="cultura">
-                    <option value="Soja">Soja (Média 1.2 saca/ha)</option>
-                    <option value="Milho">Milho (Média 1.0 saca/ha)</option>
-                    <option value="Trigo">Trigo (Média 2.5 sacas/ha)</option>
-                </select>
+            <div class="status-painel">
+                <div class="status-box">
+                    <div>Saúde da Lavoura</div>
+                    <div id="status-saude" class="status-val">100%</div>
+                </div>
+                <div class="status-box">
+                    <div>Infestação de Pragas</div>
+                    <div id="status-praga" class="status-val" style="color: var(--vermelho-alerta)">20%</div>
+                </div>
+                <div class="status-box">
+                    <div>Custo Acumulado</div>
+                    <div id="status-custo" class="status-val" style="color: #455a64">R$ 0</div>
+                </div>
+                <div class="status-box">
+                    <div>Resistência Química</div>
+                    <div id="status-resistencia" class="status-val" style="color: #e65100">0%</div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="area">Tamanho da área (Hectares):</label>
-                <input type="number" id="area" placeholder="Digite o número de hectares">
+            <h3 style="color: var(--verde-floresta); text-align: center;">Escolha sua Ação para esta Rodada:</h3>
+            
+            <div class="botoes-acoes">
+                <button id="btn-q" class="btn-acao btn-quimico" onclick="jogarTurno('quimico')">⚠️ Pesticida Químico<br><small>(Custo Alto / Alívio Rápido)</small></button>
+                <button id="btn-b" class="btn-acao btn-biologico" onclick="jogarTurno('biologico')">🌿 Controle Biológico<br><small>(Vespas e Joaninhas)</small></button>
+                <button id="btn-m" class="btn-acao btn-monitoramento" onclick="jogarTurno('monitorar')">🔍 Monitorar e Armadilhas<br><small>(Custo Baixo / Inteligência)</small></button>
             </div>
 
-            <button class="btn-simular" onclick="calcularSementes()">Calcular Necessidade</button>
+            <div id="resultado-rodada">
+                <div class="badge" id="titulo-alerta">Histórico de Ação</div>
+                <p id="texto-alerta" style="margin: 5px 0 0 0; font-size: 0.95rem;"></p>
+            </div>
 
-            <div id="resultado"></div>
+            <button id="btn-reset" class="btn-reiniciar" onclick="reiniciarSimulador()">Reiniciar Simulação</button>
         </div>
     </div>
 
     <script>
-        function calcularSementes() {
-            const area = parseFloat(document.getElementById('area').value);
-            const cultura = document.getElementById('cultura').value;
-            const resDiv = document.getElementById('resultado');
+        // Variáveis de Estado do Simulador
+        let saudeLavoura = 100;
+        let infestacaoPraga = 20;
+        let custoAcumulado = 0;
+        let resistenciaQuimica = 0;
+        let usosSeguidosQuimico = 0;
 
-            if (area > 0) {
-                let sacasPorHectare = 0;
+        function atualizarPainel() {
+            document.getElementById('status-saude').innerText = saudeLavoura + "%";
+            document.getElementById('status-praga').innerText = infestacaoPraga + "%";
+            document.getElementById('status-custo').innerText = "R$ " + custoAcumulado;
+            document.getElementById('status-resistencia').innerText = resistenciaQuimica + "%";
 
-                // Definindo as médias de sacas por hectare
-                if (cultura === "Soja") sacasPorHectare = 1.2;
-                else if (cultura === "Milho") sacasPorHectare = 1.0;
-                else if (cultura === "Trigo") sacasPorHectare = 2.5;
+            // Cores dinâmicas para alertas críticos
+            if (saudeLavoura < 40) document.getElementById('status-saude').style.color = 'var(--vermelho-alerta)';
+            else document.getElementById('status-saude').style.color = 'var(--verde-campo)';
 
-                const totalSacas = (area * sacasPorHectare).toFixed(1);
+            if (infestacaoPraga > 60) document.getElementById('status-praga').style.color = 'var(--vermelho-alerta)';
+            else if (infestacaoPraga < 15) document.getElementById('status-praga').style.color = 'var(--verde-campo)';
+            else document.getElementById('status-praga').style.color = '#e65100';
+        }
 
-                resDiv.style.display = "block";
-                resDiv.innerHTML = `
-                    <div class="badge">Resultado da Simulação</div>
-                    <h2 style="color: var(--verde-floresta); margin-top:0;">Planejamento Concluído!</h2>
-                    <p>Para plantar <strong>${area} hectares</strong> de <strong>${cultura}</strong>, você precisará de aproximadamente:</p>
-                    <div style="font-size: 1.5rem; color: #d4a017; font-weight: bold;">
-                        📦 ${totalSacas} sacas de sementes
-                    </div>
-                    <p style="font-size: 0.8rem; color: #666; margin-top: 15px;">
-                        *Cálculo baseado em médias técnicas. Consulte sempre um engenheiro agrônomo para ajustes de densidade específicos da sua variedade.
-                    </p>
-                `;
-            } else {
-                alert("Por favor, insira um valor válido para a área da plantação.");
+        function jogarTurno(acao) {
+            let logTexto = "";
+            const boxResultado = document.getElementById('resultado-rodada');
+            boxResultado.style.display = "block";
+
+            if (acao === 'quimico') {
+                usosSeguidosQuimico++;
+                custoAcumulado += 3500; // Pesticidas são caros
+                
+                // Lógica de Superpraga Resistente
+                if (usosSeguidosQuimico > 1) {
+                    resistenciaQuimica += 35;
+                    if (resistenciaQuimica > 100) resistenciaQuimica = 100;
+                }
+
+                // Eficiência do veneno cai com a resistência
+                let eficiencia = 40 - (40 * (resistenciaQuimica / 100));
+                infestacaoPraga -= Math.round(eficiencia);
+                
+                if (resistenciaQuimica >= 70) {
+                    logTexto = "❌ <strong>Efeito colateral!</strong> O veneno não faz mais efeito. As lagartas criaram super-resistência, os polinizadores morreram e os custos dispararam!";
+                    infestacaoPraga += 15; // Praga volta mais forte
+                } else {
+                    logTexto = "⚠️ <strong>Pesticida Químico aplicado.</strong> A infestação cedeu um pouco, mas os custos foram altos e a resistência biológica da praga aumentou.";
+                }
+
+            } else if (acao === 'biologico') {
+                usosSeguidosQuimico = 0;
+                custoAcumulado += 1200; // Controle biológico é acessível
+                
+                // Quebra a resistência se monitorado ou reduz pragas de forma limpa
+                if (resistenciaQuimica > 0) resistenciaQuimica -= 15;
+                if (resistenciaQuimica < 0) resistenciaQuimica = 0;
+
+                infestacaoPraga -= 25;
+                logTexto = "🌿 <strong>Controle Biológico ativado!</strong> Inimigos naturais (como pequenas vespas predadoras) foram inseridos. Redução limpa de pragas e diminuição da resistência química.";
+
+            } else if (acao === 'monitorar') {
+                usosSeguidosQuimico = 0;
+                custoAcumulado += 500; // Extremamente econômico
+
+                infestacaoPraga -= 10; // Reduz pouco de forma direta, mas evita desastres
+                if (resistenciaQuimica > 0) resistenciaQuimica -= 10;
+                if (resistenciaQuimica < 0) resistenciaQuimica = 0;
+                
+                logTexto = "🔍 <strong>Monitoramento Inteligente.</strong> Dados coletados via armadilhas de feromônio. Você descobriu focos iniciais gastando quase nada, poupando a saúde ambiental.";
             }
+
+            // Crescimento natural da praga a cada turno simulado
+            infestacaoPraga += 15;
+            
+            // Limitadores matemáticos de segurança
+            if (infestacaoPraga > 100) infestacaoPraga = 100;
+            if (infestacaoPraga < 0) infestacaoPraga = 0;
+
+            // Danos à lavoura baseados na infestação atual
+            if (infestacaoPraga > 30) {
+                saudeLavoura -= Math.round((infestacaoPraga - 30) / 2);
+            } else {
+                saudeLavoura += 5; // Recuperação da planta livre de pragas
+            }
+
+            if (saudeLavoura > 100) saudeLavoura = 100;
+            if (saudeLavoura < 0) saudeLavoura = 0;
+
+            // Verificar Fim do Jogo / Fim de Safra
+            document.getElementById('texto-alerta').innerHTML = logTexto;
+            atualizarPainel();
+            verificarFimJogo();
+        }
+
+        function verificarFimJogo() {
+            if (saudeLavoura <= 0) {
+                document.getElementById('texto-alerta').innerHTML = "💀 <strong>Game Over / Safra Perdida:</strong> A infestação destruiu completamente suas plantas. A falta de manejo biológico adequado inviabilizou a fazenda.";
+                travarBotoes();
+            } else if (infestacaoPraga <= 5) {
+                document.getElementById('texto-alerta').innerHTML = "🏆 <strong>Sucesso Total!</strong> Você aplicou o MIP perfeitamente. A praga está sob controle econômico, os inimigos naturais protegem o campo e seu lucro foi otimizado!";
+                travarBotoes();
+            }
+        }
+
+        function travarBotoes() {
+            document.getElementById('btn-q').disabled = true;
+            document.getElementById('btn-b').disabled = true;
+            document.getElementById('btn-m').disabled = true;
+            document.getElementById('btn-reset').style.display = "block";
+        }
+
+        function reiniciarSimulador() {
+            saudeLavoura = 100;
+            infestacaoPraga = 20;
+            custoAcumulado = 0;
+            resistenciaQuimica = 0;
+            usosSeguidosQuimico = 0;
+
+            document.getElementById('btn-q').disabled = false;
+            document.getElementById('btn-b').disabled = false;
+            document.getElementById('btn-m').disabled = false;
+            document.getElementById('btn-reset').style.display = "none";
+            document.getElementById('resultado-rodada').style.display = "none";
+            
+            atualizarPainel();
         }
     </script>
 
