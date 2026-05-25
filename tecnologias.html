@@ -41,7 +41,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px; /* Aumentado para dar mais espaço lateral aos 5 quadros lado a lado */
             margin: -40px auto 50px;
             padding: 0 20px;
         }
@@ -61,12 +61,11 @@
 
         .btn-voltar:hover { transform: scale(1.05); background: var(--amarelo-ouro); color: var(--verde-floresta); }
 
+        /* ALTERAÇÃO AQUI: Alinhamento horizontal fluido */
         .grid-tech {
             display: grid;
-            /* grid-template-columns ajustado para não forçar estiramento e permitir centralização */
-            grid-template-columns: repeat(auto-fit, 300px); 
-            gap: 25px;
-            /* ESTA LINHA CENTRALIZA OS QUADROS HORIZONTALMENTE */
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 20px;
             justify-content: center; 
         }
 
@@ -83,15 +82,20 @@
 
         .card-tech:hover { transform: translateY(-10px); border-color: var(--amarelo-ouro); }
 
-        .img-box { height: 180px; background-size: cover; background-position: center; }
+        .img-box { height: 160px; background-size: cover; background-position: center; }
 
-        .info-box { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .info-box { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
 
         .info-box h2 {
             margin: 0 0 10px 0;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--verde-campo);
             font-family: 'Montserrat', sans-serif;
+        }
+
+        .info-box p {
+            font-size: 0.9rem;
+            margin: 0 0 15px 0;
         }
 
         .tag {
@@ -100,7 +104,7 @@
             color: var(--verde-campo);
             padding: 4px 10px;
             border-radius: 5px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: bold;
             margin-bottom: 10px;
             text-transform: uppercase;
@@ -112,11 +116,12 @@
             background: var(--verde-campo);
             color: white;
             text-decoration: none;
-            padding: 12px;
+            padding: 10px;
             border-radius: 10px;
             font-weight: 600;
             margin-top: auto;
             transition: 0.3s;
+            font-size: 0.9rem;
         }
 
         .btn-saiba-mais:hover { background: var(--amarelo-ouro); color: var(--verde-floresta); }
@@ -186,6 +191,16 @@
                     <h2>Big Data Climático</h2>
                     <p>Previsão meteorológica avançada para tomada de decisão.</p>
                     <a href="detalhes-clima.html" class="btn-saiba-mais">Ver Fluxo Técnico</a>
+                </div>
+            </div>
+
+            <div class="card-tech">
+                <div class="img-box" style="background-image: url('https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=500');"></div>
+                <div class="info-box">
+                    <span class="tag">Interatividade</span>
+                    <h2>Simulador MIP</h2>
+                    <p>Tome decisões biológicas e tecnológicas para combater pragas.</p>
+                    <a href="simulador.html" class="btn-saiba-mais">Testar Simulador</a>
                 </div>
             </div>
         </div>
