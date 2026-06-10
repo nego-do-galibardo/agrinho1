@@ -10,6 +10,7 @@
         margin: 0;
         font-family: 'Poppins', sans-serif;
         background-color: #f4f4f4;
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     header {
@@ -60,7 +61,7 @@
         border-radius: 20px;
         overflow: hidden;
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        transition: 0.3s;
+        transition: transform 0.3s, border-color 0.3s, background-color 0.3s;
         border-bottom: 5px solid var(--verde-floresta);
         display: flex;
         flex-direction: column;
@@ -86,6 +87,7 @@
         color: var(--verde-floresta);
         font-family: 'Montserrat', sans-serif;
         text-transform: uppercase;
+        transition: color 0.3s ease;
     }
 
     .info-box ul {
@@ -100,6 +102,7 @@
         color: #444;
         display: flex;
         align-items: center;
+        transition: color 0.3s ease;
     }
 
     .info-box li::before {
@@ -119,45 +122,78 @@
         margin-bottom: 10px;
         text-transform: uppercase;
     }
-/* Estilo do Botão Fixado no Canto Inferior Direito */
-.dark-mode-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000; /* Garante que ele fique por cima de tudo */
-  transition: transform 0.2s ease;
-}
 
-.dark-mode-btn:hover {
-  transform: scale(1.1);
-}
+    /* ==========================================
+       ESTILO DO BOTÃO DO MODO ESCURO
+    ========================================== */
+    .dark-mode-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #333;
+        color: #fff;
+        border: 2px solid var(--amarelo-ouro);
+        cursor: pointer;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        z-index: 1000; /* Garante que ele fique por cima de tudo */
+        transition: transform 0.2s ease, background-color 0.3s;
+    }
 
-/* Classes para o Modo Escuro */
-body.dark-mode {
-  background-color: #121212;
-  color: #ffffff;
-}
+    .dark-mode-btn:hover {
+        transform: scale(1.1);
+    }
 
-/* Opcional: Se o botão precisar mudar de cor ou ícone no modo escuro */
-body.dark-mode .dark-mode-btn {
-  background-color: #ffffff;
-  color: #333;
-}
-body.dark-mode .sead-card, 
-body.dark-mode main {
-  background-color: #1e1e1e;
-  color: #ffffff;
-}
+    /* ==========================================
+       CLASSES COM O MODO ESCURO ATIVADO
+    ========================================== */
+    body.dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    /* Ajuste do botão voltar para destacar no fundo escuro */
+    body.dark-mode .btn-voltar {
+        background: #222222;
+        color: #ffffff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    body.dark-mode .btn-voltar:hover {
+        background: var(--amarelo-ouro);
+        color: var(--verde-floresta);
+    }
+
+    /* Cards adaptados para o tema escuro */
+    body.dark-mode .card-sustentavel {
+        background-color: #1e1e1e;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    }
+
+    /* Títulos e textos internos dos cards */
+    body.dark-mode .info-box h2 {
+        color: var(--amarelo-ouro);
+    }
+
+    body.dark-mode .info-box li {
+        color: #dddddd;
+    }
+
+    /* Alteração visual do botão flutuante */
+    body.dark-mode .dark-mode-btn {
+        background-color: #ffffff;
+        color: #333;
+    }
+
+    /* Seletor genérico mantido por segurança */
+    body.dark-mode .sead-card, 
+    body.dark-mode main {
+        background-color: #1e1e1e;
+        color: #ffffff;
+    }
 </style>
