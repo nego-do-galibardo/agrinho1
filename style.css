@@ -155,4 +155,9 @@ body.dark-mode .dark-mode-btn {
   background-color: #ffffff;
   color: #333;
 }
+body.dark-mode .sead-card, 
+body.dark-mode main {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
 </style>
