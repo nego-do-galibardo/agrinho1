@@ -1,77 +1,54 @@
 <script>
 // ===============================
-// MIP EXTENSÃO RURAL - VERSÃO ESTÁVEL
+// MIP EXTENSÃO RURAL - VERSÃO FINAL ESTÁVEL
 // ===============================
 
-let praga = 20;
-let cultura = 100;
-let resistencia = 0;
-let inimigosNaturais = 60;
+// FORÇA ESCOPOS GLOBAIS (IMPORTANTE)
+window.saudeLavoura = 100;
+window.infestacaoPraga = 20;
+window.resistenciaQuimica = 0;
+window.equilibrioBiologico = 60;
+window.custoAcumulado = 0;
 
-let custo = 0;
-
-const ETL = 30;
-
-// ===============================
-// SAFE DOM (evita tela branca)
-// ===============================
-function el(id) {
-    return document.getElementById(id);
-}
-
-// ===============================
-function clamp(v, min, max) {
-    return Math.max(min, Math.min(max, v));
-}
-
-// ===============================
-// INICIALIZAÇÃO SEGURA
-// ===============================
-window.addEventListener("load", () => {
-    atualizarPainel();
-});
-
-// ===============================
-// DINÂMICA NATURAL
-// ===============================
-function crescimentoNatural() {
-
-    let taxa = 0.08 + (praga / 250);
-    taxa -= (inimigosNaturais / 100) * 0.06;
-
-    praga += praga * taxa;
-
-    praga = clamp(praga, 0, 100);
-}
-
-// ===============================
-// PAINEL
 // ===============================
 function atualizarPainel() {
 
-    const s = el("status-saude");
-    const p = el("status-praga");
-    const c = el("status-custo");
-    const r = el("status-resistencia");
+    const s = document.getElementById("status-saude");
+    const p = document.getElementById("status-praga");
+    const c = document.getElementById("status-custo");
+    const r = document.getElementById("status-resistencia");
 
-    if (!s || !p || !c || !r) return;
+    if (!s || !p || !c || !r) {
+        console.error("Elementos do painel não encontrados");
+        return;
+    }
 
-    s.innerText = cultura.toFixed(0) + "%";
-    p.innerText = praga.toFixed(0) + "%";
-    c.innerText = "R$ " + custo;
-    r.innerText = resistencia.toFixed(0) + "%";
+    s.innerText = saudeLavoura.toFixed(0) + "%";
+    p.innerText = infestacaoPraga.toFixed(0) + "%";
+    c.innerText = "R$ " + custoAcumulado;
+    r.innerText = resistenciaQuimica.toFixed(0) + "%";
 
-    s.style.color = cultura < 40 ? "#c62828" : "#2E7D32";
-    p.style.color = praga > 60 ? "#c62828" :
-                    praga < 20 ? "#2E7D32" : "#e65100";
+    s.style.color = saudeLavoura < 40 ? "red" : "green";
 }
 
 // ===============================
-// JOGO
-// ===============================
-function jogarTurno(acao) {
+function crescimentoNatural() {
+    let taxa = 0.08;
 
-    const box = el("resultado-rodada");
+    taxa += infestacaoPraga / 200;
+    taxa -= equilibrioBiologico / 200;
+
+    infestacaoPraga += infestacaoPraga * taxa;
+
+    if (infestacaoPraga > 100) infestacaoPraga = 100;
+}
+
+// ===============================
+// 🔥 FUNÇÃO GLOBAL (ESSENCIAL)
+// ===============================
+window.jogarTurno = function(acao) {
+
+    const box = document.getElementById("resultado-rodada");
     if (box) box.style.display = "block";
 
     crescimentoNatural();
@@ -80,33 +57,30 @@ function jogarTurno(acao) {
 
     if (acao === "quimico") {
 
-        custo += 4500;
+        custoAcumulado += 4000;
 
-        resistencia += 8 + (praga / 40);
-        resistencia = clamp(resistencia, 0, 100);
+        resistenciaQuimica += 10;
+        if (resistenciaQuimica > 100) resistenciaQuimica = 100;
 
-        let eficiencia = 50 * (1 - resistencia / 100);
-        praga -= eficiencia;
+        let efeito = 50 * (1 - resistenciaQuimica / 100);
 
-        inimigosNaturais -= 10;
-        inimigosNaturais = clamp(inimigosNaturais, 0, 100);
+        infestacaoPraga -= efeito;
 
-        log = "Controle químico aplicado.";
+        equilibrioBiologico -= 10;
+
+        log = "Uso de controle químico aplicado.";
 
     }
 
     else if (acao === "biologico") {
 
-        custo += 1800;
+        custoAcumulado += 1500;
 
-        let eficiencia = (inimigosNaturais / 100) * 40;
-        praga -= eficiencia;
+        let efeito = equilibrioBiologico * 0.4;
 
-        inimigosNaturais += 5;
-        inimigosNaturais = clamp(inimigosNaturais, 0, 100);
+        infestacaoPraga -= efeito;
 
-        resistencia -= 3;
-        resistencia = clamp(resistencia, 0, 100);
+        equilibrioBiologico += 5;
 
         log = "Controle biológico aplicado.";
 
@@ -114,46 +88,47 @@ function jogarTurno(acao) {
 
     else if (acao === "monitorar") {
 
-        custo += 600;
+        custoAcumulado += 500;
 
-        praga -= 2;
+        infestacaoPraga -= 2;
 
-        inimigosNaturais += 3;
-        inimigosNaturais = clamp(inimigosNaturais, 0, 100);
+        equilibrioBiologico += 2;
 
         log = "Monitoramento realizado.";
     }
 
-    praga = clamp(praga, 0, 100);
+    infestacaoPraga = Math.max(0, Math.min(100, infestacaoPraga));
 
-    // dano cultura
-    if (praga > ETL) {
-        cultura -= (praga - ETL) * 0.5;
+    // dano cultura simples
+    if (!window.saudeLavoura) window.saudeLavoura = 100;
+
+    if (infestacaoPraga > 30) {
+        saudeLavoura -= (infestacaoPraga - 30) * 0.4;
     } else {
-        cultura += 1.5;
+        saudeLavoura += 1.5;
     }
 
-    cultura = clamp(cultura, 0, 100);
+    saudeLavoura = Math.max(0, Math.min(100, saudeLavoura));
 
-    const txt = el("texto-alerta");
+    const txt = document.getElementById("texto-alerta");
     if (txt) txt.innerHTML = log;
 
     atualizarPainel();
     verificarFim();
-}
+};
 
 // ===============================
 function verificarFim() {
 
-    const txt = el("texto-alerta");
+    const txt = document.getElementById("texto-alerta");
 
-    if (cultura <= 0) {
-        if (txt) txt.innerHTML = "Sistema colapsado.";
+    if (saudeLavoura <= 0) {
+        if (txt) txt.innerHTML = "💀 Sistema colapsado.";
         travar();
     }
 
-    else if (praga < 5 && cultura > 70) {
-        if (txt) txt.innerHTML = "Sistema estabilizado com sucesso.";
+    else if (infestacaoPraga <= 5) {
+        if (txt) txt.innerHTML = "🏆 Sistema estabilizado.";
         travar();
     }
 }
@@ -161,29 +136,31 @@ function verificarFim() {
 // ===============================
 function travar() {
 
-    const q = el('btn-q');
-    const b = el('btn-b');
-    const m = el('btn-m');
-    const r = el('btn-reset');
-
-    if (q) q.disabled = true;
-    if (b) b.disabled = true;
-    if (m) m.disabled = true;
-    if (r) r.style.display = "block";
+    document.getElementById('btn-q').disabled = true;
+    document.getElementById('btn-b').disabled = true;
+    document.getElementById('btn-m').disabled = true;
+    document.getElementById('btn-reset').style.display = "block";
 }
 
 // ===============================
 function reiniciarSimulador() {
 
-    praga = 20;
-    cultura = 100;
-    resistencia = 0;
-    inimigosNaturais = 60;
-    custo = 0;
+    saudeLavoura = 100;
+    infestacaoPraga = 20;
+    resistenciaQuimica = 0;
+    equilibrioBiologico = 60;
+    custoAcumulado = 0;
 
-    const r = el("resultado-rodada");
-    if (r) r.style.display = "none";
+    document.getElementById('btn-q').disabled = false;
+    document.getElementById('btn-b').disabled = false;
+    document.getElementById('btn-m').disabled = false;
+
+    document.getElementById('resultado-rodada').style.display = "none";
 
     atualizarPainel();
 }
+
+// inicialização
+window.onload = atualizarPainel;
+
 </script>
