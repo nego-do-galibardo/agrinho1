@@ -1,166 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador MIP | Agrinho</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --amarelo-ouro: #FFD700;
+            --verde-floresta: #013220;
+            --verde-campo: #2E7D32;
+            --verde-suave: #e8f5e9;
+            --vermelho-alerta: #c62828;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .btn-voltar {
+            background-color: transparent;
+            color: var(--verde-floresta);
+            border: 2px solid var(--verde-floresta);
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .card-principal {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-top: 10px solid var(--amarelo-ouro);
+        }
+
+        h1 {
+            color: var(--verde-floresta);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .status-painel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .status-box {
+            background: #fcfcfc;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .status-val {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .botoes-acoes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .btn-acao {
+            background-color: var(--verde-campo);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .btn-quimico { background-color: #37474f; }
+        .btn-biologico { background-color: var(--verde-campo); }
+        .btn-monitoramento { background-color: #0277bd; }
+
+        #resultado-rodada {
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fffde7;
+            border: 2px solid var(--amarelo-ouro);
+            display: none;
+        }
+
+        .btn-reiniciar {
+            background-color: var(--amarelo-ouro);
+            color: var(--verde-floresta);
+            border: none;
+            padding: 12px 25px;
+            font-weight: bold;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a href="tecnologias.html" class="btn-voltar">← Voltar</a>
+
+<div class="card-principal">
+
+<h1>Simulador MIP</h1>
+
+<div class="explicacao">
+🐛 Manejo Integrado de Pragas: equilíbrio entre eficiência, custo e sustentabilidade.
+</div>
+
+<div class="status-painel">
+    <div class="status-box">
+        <div>Saúde da Lavoura</div>
+        <div id="status-saude" class="status-val">100%</div>
+    </div>
+
+    <div class="status-box">
+        <div>Pragas</div>
+        <div id="status-praga" class="status-val">20%</div>
+    </div>
+
+    <div class="status-box">
+        <div>Custo</div>
+        <div id="status-custo" class="status-val">R$ 0</div>
+    </div>
+
+    <div class="status-box">
+        <div>Resistência</div>
+        <div id="status-resistencia" class="status-val">0%</div>
+    </div>
+</div>
+
+<h3>Escolha a ação:</h3>
+
+<div class="botoes-acoes">
+    <button class="btn-acao btn-quimico" onclick="jogarTurno('quimico')">Químico</button>
+    <button class="btn-acao btn-biologico" onclick="jogarTurno('biologico')">Biológico</button>
+    <button class="btn-acao btn-monitoramento" onclick="jogarTurno('monitorar')">Monitoramento</button>
+</div>
+
+<div id="resultado-rodada">
+    <p id="texto-alerta"></p>
+</div>
+
+<button id="btn-reset" class="btn-reiniciar" onclick="reiniciarSimulador()">Reiniciar</button>
+
+</div>
+</div>
+
 <script>
-// ===============================
-// MIP EXTENSÃO RURAL - VERSÃO FINAL ESTÁVEL
-// ===============================
 
-// FORÇA ESCOPOS GLOBAIS (IMPORTANTE)
-window.saudeLavoura = 100;
-window.infestacaoPraga = 20;
-window.resistenciaQuimica = 0;
-window.equilibrioBiologico = 60;
-window.custoAcumulado = 0;
+// =====================
+// VARIÁVEIS
+// =====================
+let saudeLavoura = 100;
+let infestacaoPraga = 20;
+let custoAcumulado = 0;
+let resistenciaQuimica = 0;
 
-// ===============================
+// =====================
 function atualizarPainel() {
-
-    const s = document.getElementById("status-saude");
-    const p = document.getElementById("status-praga");
-    const c = document.getElementById("status-custo");
-    const r = document.getElementById("status-resistencia");
-
-    if (!s || !p || !c || !r) {
-        console.error("Elementos do painel não encontrados");
-        return;
-    }
-
-    s.innerText = saudeLavoura.toFixed(0) + "%";
-    p.innerText = infestacaoPraga.toFixed(0) + "%";
-    c.innerText = "R$ " + custoAcumulado;
-    r.innerText = resistenciaQuimica.toFixed(0) + "%";
-
-    s.style.color = saudeLavoura < 40 ? "red" : "green";
+    document.getElementById('status-saude').innerText = saudeLavoura.toFixed(0) + "%";
+    document.getElementById('status-praga').innerText = infestacaoPraga.toFixed(0) + "%";
+    document.getElementById('status-custo').innerText = "R$ " + custoAcumulado;
+    document.getElementById('status-resistencia').innerText = resistenciaQuimica.toFixed(0) + "%";
 }
 
-// ===============================
-function crescimentoNatural() {
-    let taxa = 0.08;
+// =====================
+function jogarTurno(acao) {
 
-    taxa += infestacaoPraga / 200;
-    taxa -= equilibrioBiologico / 200;
-
-    infestacaoPraga += infestacaoPraga * taxa;
-
-    if (infestacaoPraga > 100) infestacaoPraga = 100;
-}
-
-// ===============================
-// 🔥 FUNÇÃO GLOBAL (ESSENCIAL)
-// ===============================
-window.jogarTurno = function(acao) {
-
-    const box = document.getElementById("resultado-rodada");
-    if (box) box.style.display = "block";
-
-    crescimentoNatural();
+    document.getElementById("resultado-rodada").style.display = "block";
 
     let log = "";
 
     if (acao === "quimico") {
 
-        custoAcumulado += 4000;
+        custoAcumulado += 1800; // coerente: custo intermediário
 
         resistenciaQuimica += 10;
-        if (resistenciaQuimica > 100) resistenciaQuimica = 100;
+        resistenciaQuimica = Math.min(100, resistenciaQuimica);
 
-        let efeito = 50 * (1 - resistenciaQuimica / 100);
+        let eficiencia = 70 * (1 - resistenciaQuimica / 100);
 
-        infestacaoPraga -= efeito;
+        infestacaoPraga -= eficiencia;
 
-        equilibrioBiologico -= 10;
-
-        log = "Uso de controle químico aplicado.";
+        log = "🧪 Químico: alta eficiência imediata, mas aumenta resistência.";
 
     }
 
     else if (acao === "biologico") {
 
-        custoAcumulado += 1500;
+        custoAcumulado += 900;
 
-        let efeito = equilibrioBiologico * 0.4;
+        infestacaoPraga -= 18;
 
-        infestacaoPraga -= efeito;
+        resistenciaQuimica -= 8;
+        if (resistenciaQuimica < 0) resistenciaQuimica = 0;
 
-        equilibrioBiologico += 5;
-
-        log = "Controle biológico aplicado.";
+        log = "🌿 Biológico: sustentável e vantajoso no médio prazo.";
 
     }
 
     else if (acao === "monitorar") {
 
-        custoAcumulado += 500;
+        custoAcumulado += 300;
 
-        infestacaoPraga -= 2;
+        infestacaoPraga -= 5;
 
-        equilibrioBiologico += 2;
+        log = "🔍 Monitoramento: menor custo e melhor decisão futura.";
 
-        log = "Monitoramento realizado.";
     }
+
+    // crescimento natural
+    infestacaoPraga += 10;
 
     infestacaoPraga = Math.max(0, Math.min(100, infestacaoPraga));
 
-    // dano cultura simples
-    if (!window.saudeLavoura) window.saudeLavoura = 100;
-
+    // dano cultura
     if (infestacaoPraga > 30) {
         saudeLavoura -= (infestacaoPraga - 30) * 0.4;
     } else {
-        saudeLavoura += 1.5;
+        saudeLavoura += 2;
     }
 
     saudeLavoura = Math.max(0, Math.min(100, saudeLavoura));
 
-    const txt = document.getElementById("texto-alerta");
-    if (txt) txt.innerHTML = log;
+    document.getElementById("texto-alerta").innerHTML = log;
 
     atualizarPainel();
     verificarFim();
-};
+}
 
-// ===============================
+// =====================
 function verificarFim() {
 
-    const txt = document.getElementById("texto-alerta");
-
     if (saudeLavoura <= 0) {
-        if (txt) txt.innerHTML = "💀 Sistema colapsado.";
+        document.getElementById("texto-alerta").innerHTML = "💀 Safra perdida.";
         travar();
     }
 
     else if (infestacaoPraga <= 5) {
-        if (txt) txt.innerHTML = "🏆 Sistema estabilizado.";
+        document.getElementById("texto-alerta").innerHTML = "🏆 Manejo eficiente.";
         travar();
     }
 }
 
-// ===============================
+// =====================
 function travar() {
-
-    document.getElementById('btn-q').disabled = true;
-    document.getElementById('btn-b').disabled = true;
-    document.getElementById('btn-m').disabled = true;
     document.getElementById('btn-reset').style.display = "block";
 }
 
-// ===============================
+// =====================
 function reiniciarSimulador() {
 
     saudeLavoura = 100;
     infestacaoPraga = 20;
-    resistenciaQuimica = 0;
-    equilibrioBiologico = 60;
     custoAcumulado = 0;
+    resistenciaQuimica = 0;
 
-    document.getElementById('btn-q').disabled = false;
-    document.getElementById('btn-b').disabled = false;
-    document.getElementById('btn-m').disabled = false;
-
-    document.getElementById('resultado-rodada').style.display = "none";
+    document.getElementById("resultado-rodada").style.display = "none";
 
     atualizarPainel();
 }
 
-// inicialização
-window.onload = atualizarPainel;
+atualizarPainel();
 
 </script>
+
+</body>
+</html>
