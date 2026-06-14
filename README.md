@@ -31,7 +31,7 @@ Também busca conscientizar sobre o uso responsável dos recursos naturais e a i
 🛠️ Tecnologias Utilizadas
 ---
 - HTML5
--CSS3
+- CSS3
 - JavaScript (puro, sem frameworks)
 - Google Fonts
 - Imagens externas (links da internet, sem arquivos locais)
