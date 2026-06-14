@@ -1,7 +1,7 @@
 <script>
-// ======================================
-// FERRAMENTA DE EXTENSÃO RURAL - MIP
-// ======================================
+// ===============================
+// MIP EXTENSÃO RURAL - VERSÃO ESTÁVEL
+// ===============================
 
 let praga = 20;
 let cultura = 100;
@@ -9,72 +9,34 @@ let resistencia = 0;
 let inimigosNaturais = 60;
 
 let custo = 0;
-let historico = [];
 
 const ETL = 30;
 
-// ======================================
-// UTIL
-// ======================================
+// ===============================
+// SAFE DOM (evita tela branca)
+// ===============================
+function el(id) {
+    return document.getElementById(id);
+}
+
+// ===============================
 function clamp(v, min, max) {
     return Math.max(min, Math.min(max, v));
 }
 
-// ======================================
-// CLASSIFICAÇÃO AGRONÔMICA
-// ======================================
-function nivelRisco() {
-    if (praga < 20) return "BAIXO";
-    if (praga < 50) return "MODERADO";
-    return "ALTO";
-}
+// ===============================
+// INICIALIZAÇÃO SEGURA
+// ===============================
+window.addEventListener("load", () => {
+    atualizarPainel();
+});
 
-function estadoEcologico() {
-    if (inimigosNaturais > 60) return "ESTÁVEL";
-    if (inimigosNaturais > 30) return "DEGRADADO";
-    return "CRÍTICO";
-}
-
-// ======================================
-// DIAGNÓSTICO TÉCNICO
-// ======================================
-function gerarDiagnostico() {
-
-    let risco = nivelRisco();
-    let eco = estadoEcologico();
-
-    let texto = "";
-
-    if (risco === "BAIXO" && eco === "ESTÁVEL") {
-        texto = "Sistema em equilíbrio. Recomenda-se apenas monitoramento preventivo.";
-    }
-
-    else if (risco === "MODERADO") {
-        if (eco === "ESTÁVEL") {
-            texto = "População em crescimento. Recomenda-se intensificar monitoramento e favorecer controle biológico.";
-        } else {
-            texto = "Desequilíbrio ecológico detectado. Evitar uso repetido de inseticidas.";
-        }
-    }
-
-    else {
-        if (resistencia > 60) {
-            texto = "ALERTA: alta resistência química. Controle químico isolado tende a falhar.";
-        } else {
-            texto = "Infestação alta. Intervenção integrada necessária (biológico + monitoramento).";
-        }
-    }
-
-    return texto;
-}
-
-// ======================================
+// ===============================
 // DINÂMICA NATURAL
-// ======================================
+// ===============================
 function crescimentoNatural() {
 
     let taxa = 0.08 + (praga / 250);
-
     taxa -= (inimigosNaturais / 100) * 0.06;
 
     praga += praga * taxa;
@@ -82,44 +44,35 @@ function crescimentoNatural() {
     praga = clamp(praga, 0, 100);
 }
 
-// ======================================
-// PAINEL INTELIGENTE
-// ======================================
+// ===============================
+// PAINEL
+// ===============================
 function atualizarPainel() {
 
-    document.getElementById("status-saude").innerText = cultura.toFixed(0) + "%";
-    document.getElementById("status-praga").innerText = praga.toFixed(0) + "%";
-    document.getElementById("status-custo").innerText = "R$ " + custo;
-    document.getElementById("status-resistencia").innerText = resistencia.toFixed(0) + "%";
+    const s = el("status-saude");
+    const p = el("status-praga");
+    const c = el("status-custo");
+    const r = el("status-resistencia");
 
-    // interpretação agronômica visual
-    let statusSaude = document.getElementById("status-saude");
-    if (cultura > 70) statusSaude.innerText += " (SAUDÁVEL)";
-    else if (cultura > 40) statusSaude.innerText += " (ATENÇÃO)";
-    else statusSaude.innerText += " (CRÍTICO)";
+    if (!s || !p || !c || !r) return;
 
-    let statusPraga = document.getElementById("status-praga");
-    statusPraga.innerText += " (" + nivelRisco() + ")";
+    s.innerText = cultura.toFixed(0) + "%";
+    p.innerText = praga.toFixed(0) + "%";
+    c.innerText = "R$ " + custo;
+    r.innerText = resistencia.toFixed(0) + "%";
 
-    let statusEco = document.getElementById("status-resistencia");
-    statusEco.innerText += " | ECO: " + estadoEcologico();
-
-    // cores
-    statusSaude.style.color =
-        cultura < 40 ? "#c62828" : "#2E7D32";
-
-    statusPraga.style.color =
-        praga > 60 ? "#c62828" :
-        praga < 20 ? "#2E7D32" : "#e65100";
+    s.style.color = cultura < 40 ? "#c62828" : "#2E7D32";
+    p.style.color = praga > 60 ? "#c62828" :
+                    praga < 20 ? "#2E7D32" : "#e65100";
 }
 
-// ======================================
-// INTERVENÇÃO DO USUÁRIO
-// ======================================
+// ===============================
+// JOGO
+// ===============================
 function jogarTurno(acao) {
 
-    let box = document.getElementById("resultado-rodada");
-    box.style.display = "block";
+    const box = el("resultado-rodada");
+    if (box) box.style.display = "block";
 
     crescimentoNatural();
 
@@ -133,13 +86,12 @@ function jogarTurno(acao) {
         resistencia = clamp(resistencia, 0, 100);
 
         let eficiencia = 50 * (1 - resistencia / 100);
-
         praga -= eficiencia;
 
         inimigosNaturais -= 10;
         inimigosNaturais = clamp(inimigosNaturais, 0, 100);
 
-        log = "Aplicação química realizada. Efeito imediato, porém impacto negativo no equilíbrio ecológico.";
+        log = "Controle químico aplicado.";
 
     }
 
@@ -148,7 +100,6 @@ function jogarTurno(acao) {
         custo += 1800;
 
         let eficiencia = (inimigosNaturais / 100) * 40;
-
         praga -= eficiencia;
 
         inimigosNaturais += 5;
@@ -157,7 +108,7 @@ function jogarTurno(acao) {
         resistencia -= 3;
         resistencia = clamp(resistencia, 0, 100);
 
-        log = "Controle biológico aplicado. Eficiência dependente do sistema ecológico.";
+        log = "Controle biológico aplicado.";
 
     }
 
@@ -170,8 +121,7 @@ function jogarTurno(acao) {
         inimigosNaturais += 3;
         inimigosNaturais = clamp(inimigosNaturais, 0, 100);
 
-        log = "Monitoramento realizado. Sistema atualizado com dados de campo.";
-
+        log = "Monitoramento realizado.";
     }
 
     praga = clamp(praga, 0, 100);
@@ -185,49 +135,44 @@ function jogarTurno(acao) {
 
     cultura = clamp(cultura, 0, 100);
 
-    // histórico técnico
-    historico.push({
-        turno: historico.length + 1,
-        praga: praga.toFixed(1),
-        cultura: cultura.toFixed(1),
-        resistencia: resistencia.toFixed(1)
-    });
-
-    document.getElementById("texto-alerta").innerHTML =
-        log + "<br><br><strong>Diagnóstico:</strong> " + gerarDiagnostico();
+    const txt = el("texto-alerta");
+    if (txt) txt.innerHTML = log;
 
     atualizarPainel();
     verificarFim();
 }
 
-// ======================================
-// FIM DE SISTEMA
-// ======================================
+// ===============================
 function verificarFim() {
 
+    const txt = el("texto-alerta");
+
     if (cultura <= 0) {
-        document.getElementById("texto-alerta").innerHTML =
-            "Sistema colapsado. Pressão de pragas excedeu capacidade produtiva da cultura.";
+        if (txt) txt.innerHTML = "Sistema colapsado.";
         travar();
     }
 
     else if (praga < 5 && cultura > 70) {
-        document.getElementById("texto-alerta").innerHTML =
-            "Sistema estabilizado. Manejo integrado eficiente com equilíbrio agroecológico.";
+        if (txt) txt.innerHTML = "Sistema estabilizado com sucesso.";
         travar();
     }
 }
 
+// ===============================
 function travar() {
-    document.getElementById('btn-q').disabled = true;
-    document.getElementById('btn-b').disabled = true;
-    document.getElementById('btn-m').disabled = true;
-    document.getElementById('btn-reset').style.display = "block";
+
+    const q = el('btn-q');
+    const b = el('btn-b');
+    const m = el('btn-m');
+    const r = el('btn-reset');
+
+    if (q) q.disabled = true;
+    if (b) b.disabled = true;
+    if (m) m.disabled = true;
+    if (r) r.style.display = "block";
 }
 
-// ======================================
-// RESET
-// ======================================
+// ===============================
 function reiniciarSimulador() {
 
     praga = 20;
@@ -235,14 +180,9 @@ function reiniciarSimulador() {
     resistencia = 0;
     inimigosNaturais = 60;
     custo = 0;
-    historico = [];
 
-    document.getElementById('btn-q').disabled = false;
-    document.getElementById('btn-b').disabled = false;
-    document.getElementById('btn-m').disabled = false;
-
-    document.getElementById('btn-reset').style.display = "none";
-    document.getElementById('resultado-rodada').style.display = "none";
+    const r = el("resultado-rodada");
+    if (r) r.style.display = "none";
 
     atualizarPainel();
 }
