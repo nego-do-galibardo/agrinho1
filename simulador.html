@@ -1,334 +1,180 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador MIP | Agrinho</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --amarelo-ouro: #FFD700;
-            --verde-floresta: #013220;
-            --verde-campo: #2E7D32;
-            --verde-suave: #e8f5e9;
-            --vermelho-alerta: #c62828;
-        }
+<script>
+// =========================
+// SIMULADOR MIP (VERSÃO CORRIGIDA REALISTA)
+// =========================
 
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-        }
+let saudeLavoura = 100;
+let infestacaoPraga = 20;
 
-        .container {
-            padding: 40px 20px;
-            max-width: 900px;
-            margin: auto;
-        }
+let resistenciaQuimica = 0;
+let equilibrioBiologico = 60;
 
-        .btn-voltar {
-            background-color: transparent;
-            color: var(--verde-floresta);
-            border: 2px solid var(--verde-floresta);
-            padding: 8px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 20px;
-            transition: 0.3s;
-        }
+let custoAcumulado = 0;
+let usosQuimico = 0;
 
-        .btn-voltar:hover {
-            background-color: var(--verde-floresta);
-            color: var(--amarelo-ouro);
-        }
+const LIMIAR_DANO = 30;
 
-        .card-principal {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-top: 10px solid var(--amarelo-ouro);
-        }
+// =========================
+// UI
+// =========================
+function atualizarPainel() {
+    document.getElementById('status-saude').innerText = saudeLavoura.toFixed(0) + "%";
+    document.getElementById('status-praga').innerText = infestacaoPraga.toFixed(0) + "%";
+    document.getElementById('status-custo').innerText = "R$ " + custoAcumulado;
+    document.getElementById('status-resistencia').innerText = resistenciaQuimica.toFixed(0) + "%";
 
-        h1 {
-            color: var(--verde-floresta);
-            font-family: 'Montserrat', sans-serif;
-            margin-top: 0;
-        }
+    document.getElementById('status-saude').style.color =
+        saudeLavoura < 40 ? '#c62828' : '#2E7D32';
 
-        .explicacao {
-            background-color: var(--verde-suave);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            font-size: 0.9rem;
-            border-left: 5px solid var(--verde-floresta);
-        }
+    document.getElementById('status-praga').style.color =
+        infestacaoPraga > 60 ? '#c62828' :
+        infestacaoPraga < 20 ? '#2E7D32' : '#e65100';
+}
 
-        /* Painel de Status do Jogo */
-        .status-painel {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
+// =========================
+// DINÂMICA NATURAL
+// =========================
+function crescimentoNatural() {
+    // crescimento dependente da população (modelo mais realista)
+    let taxaBase = 0.06 + (infestacaoPraga / 200);
 
-        .status-box {
-            background: #fcfcfc;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
+    infestacaoPraga += infestacaoPraga * taxaBase;
 
-        .status-val {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: var(--verde-campo);
-        }
+    // controle natural (ecossistema)
+    infestacaoPraga -= (equilibrioBiologico / 100) * 10;
+}
 
-        /* Botões de Decisão */
-        .botoes-acoes {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
+// =========================
+// TURNOS
+// =========================
+function jogarTurno(acao) {
+    let logTexto = "";
+    const boxResultado = document.getElementById('resultado-rodada');
+    boxResultado.style.display = "block";
 
-        .btn-acao {
-            background-color: var(--verde-campo);
-            color: white;
-            border: none;
-            padding: 15px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
+    // crescimento natural primeiro
+    crescimentoNatural();
 
-        .btn-acao:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-        }
+    if (acao === 'quimico') {
 
-        .btn-quimico { background-color: #37474f; }
-        .btn-biologico { background-color: var(--verde-campo); }
-        .btn-monitoramento { background-color: #0277bd; }
+        usosQuimico++;
+        custoAcumulado += 3800;
 
-        #resultado-rodada {
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #fffde7;
-            border: 2px solid var(--amarelo-ouro);
-            margin-bottom: 20px;
-            display: none;
-        }
+        // resistência = pressão de seleção
+        resistenciaQuimica += 7 + (usosQuimico * 1.5);
+        resistenciaQuimica = Math.min(resistenciaQuimica, 100);
 
-        .badge {
-            background: var(--verde-floresta);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            margin-bottom: 10px;
-            display: inline-block;
-        }
+        // eficiência cai com resistência
+        let eficiencia = 50 * (1 - resistenciaQuimica / 100);
 
-        .btn-reiniciar {
-            background-color: var(--amarelo-ouro);
-            color: var(--verde-floresta);
-            border: none;
-            padding: 12px 25px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            display: none;
-            margin: 15px auto 0 auto;
-            text-transform: uppercase;
-        }
-    </style>
-</head>
-<body>
+        infestacaoPraga -= eficiencia;
 
-    <div class="container">
-        <a href="tecnologias.html" class="btn-voltar">← Voltar para Tecnologias</a>
+        // dano ao ecossistema
+        equilibrioBiologico -= 8;
+        equilibrioBiologico = Math.max(0, equilibrioBiologico);
 
-        <div class="card-principal">
-            <h1>Simulador MIP: Manejo Integrado de Pragas</h1>
-            
-            <div class="explicacao">
-                <strong>🐛 Alta Eficiência Biológica e Tecnológica:</strong><br>
-                Sua plantação está sofrendo ataques constantes de lagartas! O uso contínuo e exclusivo de veneno químico gera pragas resistentes e destrói o bolso do produtor. Equilibre suas estratégias para salvar a safra.
-            </div>
+        logTexto = "⚠️ Controle químico aplicado. Alta eficiência inicial, mas aumenta resistência e reduz equilíbrio ecológico.";
 
-            <div class="status-painel">
-                <div class="status-box">
-                    <div>Saúde da Lavoura</div>
-                    <div id="status-saude" class="status-val">100%</div>
-                </div>
-                <div class="status-box">
-                    <div>Infestação de Pragas</div>
-                    <div id="status-praga" class="status-val" style="color: var(--vermelho-alerta)">20%</div>
-                </div>
-                <div class="status-box">
-                    <div>Custo Acumulado</div>
-                    <div id="status-custo" class="status-val" style="color: #455a64">R$ 0</div>
-                </div>
-                <div class="status-box">
-                    <div>Resistência Química</div>
-                    <div id="status-resistencia" class="status-val" style="color: #e65100">0%</div>
-                </div>
-            </div>
+    }
 
-            <h3 style="color: var(--verde-floresta); text-align: center;">Escolha sua Ação para esta Rodada:</h3>
-            
-            <div class="botoes-acoes">
-                <button id="btn-q" class="btn-acao btn-quimico" onclick="jogarTurno('quimico')">⚠️ Pesticida Químico<br><small>(Custo Alto / Alívio Rápido)</small></button>
-                <button id="btn-b" class="btn-acao btn-biologico" onclick="jogarTurno('biologico')">🌿 Controle Biológico<br><small>(Vespas e Joaninhas)</small></button>
-                <button id="btn-m" class="btn-acao btn-monitoramento" onclick="jogarTurno('monitorar')">🔍 Monitorar e Armadilhas<br><small>(Custo Baixo / Inteligência)</small></button>
-            </div>
+    else if (acao === 'biologico') {
 
-            <div id="resultado-rodada">
-                <div class="badge" id="titulo-alerta">Histórico de Ação</div>
-                <p id="texto-alerta" style="margin: 5px 0 0 0; font-size: 0.95rem;"></p>
-            </div>
+        usosQuimico = 0;
+        custoAcumulado += 1400;
 
-            <button id="btn-reset" class="btn-reiniciar" onclick="reiniciarSimulador()">Reiniciar Simulação</button>
-        </div>
-    </div>
+        // eficiência depende do ecossistema
+        let eficiencia = (equilibrioBiologico / 100) * 35;
 
-    <script>
-        // Variáveis de Estado do Simulador
-        let saudeLavoura = 100;
-        let infestacaoPraga = 20;
-        let custoAcumulado = 0;
-        let resistenciaQuimica = 0;
-        let usosSeguidosQuimico = 0;
+        infestacaoPraga -= eficiencia;
 
-        function atualizarPainel() {
-            document.getElementById('status-saude').innerText = saudeLavoura + "%";
-            document.getElementById('status-praga').innerText = infestacaoPraga + "%";
-            document.getElementById('status-custo').innerText = "R$ " + custoAcumulado;
-            document.getElementById('status-resistencia').innerText = resistenciaQuimica + "%";
+        // melhora ecossistema
+        equilibrioBiologico += 6;
+        equilibrioBiologico = Math.min(100, equilibrioBiologico);
 
-            // Cores dinâmicas para alertas críticos
-            if (saudeLavoura < 40) document.getElementById('status-saude').style.color = 'var(--vermelho-alerta)';
-            else document.getElementById('status-saude').style.color = 'var(--verde-campo)';
+        // reduz resistência lentamente
+        resistenciaQuimica -= 4;
+        resistenciaQuimica = Math.max(0, resistenciaQuimica);
 
-            if (infestacaoPraga > 60) document.getElementById('status-praga').style.color = 'var(--vermelho-alerta)';
-            else if (infestacaoPraga < 15) document.getElementById('status-praga').style.color = 'var(--verde-campo)';
-            else document.getElementById('status-praga').style.color = '#e65100';
-        }
+        logTexto = "🌿 Controle biológico aplicado. Eficiência depende do equilíbrio ecológico.";
 
-        function jogarTurno(acao) {
-            let logTexto = "";
-            const boxResultado = document.getElementById('resultado-rodada');
-            boxResultado.style.display = "block";
+    }
 
-            if (acao === 'quimico') {
-                usosSeguidosQuimico++;
-                custoAcumulado += 3500; // Pesticidas são caros
-                
-                // Lógica de Superpraga Resistente
-                if (usosSeguidosQuimico > 1) {
-                    resistenciaQuimica += 35;
-                    if (resistenciaQuimica > 100) resistenciaQuimica = 100;
-                }
+    else if (acao === 'monitorar') {
 
-                // Eficiência do veneno cai com a resistência
-                let eficiencia = 40 - (40 * (resistenciaQuimica / 100));
-                infestacaoPraga -= Math.round(eficiencia);
-                
-                if (resistenciaQuimica >= 70) {
-                    logTexto = "❌ <strong>Efeito colateral!</strong> O veneno não faz mais efeito. As lagartas criaram super-resistência, os polinizadores morreram e os custos dispararam!";
-                    infestacaoPraga += 15; // Praga volta mais forte
-                } else {
-                    logTexto = "⚠️ <strong>Pesticida Químico aplicado.</strong> A infestação cedeu um pouco, mas os custos foram altos e a resistência biológica da praga aumentou.";
-                }
+        custoAcumulado += 500;
 
-            } else if (acao === 'biologico') {
-                usosSeguidosQuimico = 0;
-                custoAcumulado += 1200; // Controle biológico é acessível
-                
-                // Quebra a resistência se monitorado ou reduz pragas de forma limpa
-                if (resistenciaQuimica > 0) resistenciaQuimica -= 15;
-                if (resistenciaQuimica < 0) resistenciaQuimica = 0;
+        // monitoramento não mata praga diretamente
+        infestacaoPraga -= 3;
 
-                infestacaoPraga -= 25;
-                logTexto = "🌿 <strong>Controle Biológico ativado!</strong> Inimigos naturais (como pequenas vespas predadoras) foram inseridos. Redução limpa de pragas e diminuição da resistência química.";
+        // melhora decisões (simulação)
+        equilibrioBiologico += 2;
+        equilibrioBiologico = Math.min(100, equilibrioBiologico);
 
-            } else if (acao === 'monitorar') {
-                usosSeguidosQuimico = 0;
-                custoAcumulado += 500; // Extremamente econômico
+        logTexto = "🔍 Monitoramento realizado. Reduz risco de surtos e melhora manejo.";
 
-                infestacaoPraga -= 10; // Reduz pouco de forma direta, mas evita desastres
-                if (resistenciaQuimica > 0) resistenciaQuimica -= 10;
-                if (resistenciaQuimica < 0) resistenciaQuimica = 0;
-                
-                logTexto = "🔍 <strong>Monitoramento Inteligente.</strong> Dados coletados via armadilhas de feromônio. Você descobriu focos iniciais gastando quase nada, poupando a saúde ambiental.";
-            }
+    }
 
-            // Crescimento natural da praga a cada turno simulado
-            infestacaoPraga += 15;
-            
-            // Limitadores matemáticos de segurança
-            if (infestacaoPraga > 100) infestacaoPraga = 100;
-            if (infestacaoPraga < 0) infestacaoPraga = 0;
+    // limites
+    infestacaoPraga = Math.max(0, Math.min(100, infestacaoPraga));
 
-            // Danos à lavoura baseados na infestação atual
-            if (infestacaoPraga > 30) {
-                saudeLavoura -= Math.round((infestacaoPraga - 30) / 2);
-            } else {
-                saudeLavoura += 5; // Recuperação da planta livre de pragas
-            }
+    // dano baseado em limiar (MIP real)
+    if (infestacaoPraga > LIMIAR_DANO) {
+        saudeLavoura -= (infestacaoPraga - LIMIAR_DANO) * 0.5;
+    } else {
+        saudeLavoura += 2;
+    }
 
-            if (saudeLavoura > 100) saudeLavoura = 100;
-            if (saudeLavoura < 0) saudeLavoura = 0;
+    saudeLavoura = Math.max(0, Math.min(100, saudeLavoura));
 
-            // Verificar Fim do Jogo / Fim de Safra
-            document.getElementById('texto-alerta').innerHTML = logTexto;
-            atualizarPainel();
-            verificarFimJogo();
-        }
+    document.getElementById('texto-alerta').innerHTML = logTexto;
 
-        function verificarFimJogo() {
-            if (saudeLavoura <= 0) {
-                document.getElementById('texto-alerta').innerHTML = "💀 <strong>Game Over / Safra Perdida:</strong> A infestação destruiu completamente suas plantas. A falta de manejo biológico adequado inviabilizou a fazenda.";
-                travarBotoes();
-            } else if (infestacaoPraga <= 5) {
-                document.getElementById('texto-alerta').innerHTML = "🏆 <strong>Sucesso Total!</strong> Você aplicou o MIP perfeitamente. A praga está sob controle econômico, os inimigos naturais protegem o campo e seu lucro foi otimizado!";
-                travarBotoes();
-            }
-        }
+    atualizarPainel();
+    verificarFimJogo();
+}
 
-        function travarBotoes() {
-            document.getElementById('btn-q').disabled = true;
-            document.getElementById('btn-b').disabled = true;
-            document.getElementById('btn-m').disabled = true;
-            document.getElementById('btn-reset').style.display = "block";
-        }
+// =========================
+// FIM DE JOGO
+// =========================
+function verificarFimJogo() {
 
-        function reiniciarSimulador() {
-            saudeLavoura = 100;
-            infestacaoPraga = 20;
-            custoAcumulado = 0;
-            resistenciaQuimica = 0;
-            usosSeguidosQuimico = 0;
+    if (saudeLavoura <= 0) {
+        document.getElementById('texto-alerta').innerHTML =
+            "💀 Safra perdida. Pressão de pragas ultrapassou o limiar econômico.";
+        travarBotoes();
+    }
 
-            document.getElementById('btn-q').disabled = false;
-            document.getElementById('btn-b').disabled = false;
-            document.getElementById('btn-m').disabled = false;
-            document.getElementById('btn-reset').style.display = "none";
-            document.getElementById('resultado-rodada').style.display = "none";
-            
-            atualizarPainel();
-        }
-    </script>
+    else if (infestacaoPraga <= 5) {
+        document.getElementById('texto-alerta').innerHTML =
+            "🏆 MIP aplicado corretamente. Sistema equilibrado e sustentável.";
+        travarBotoes();
+    }
+}
 
-</body>
-</html>
+function travarBotoes() {
+    document.getElementById('btn-q').disabled = true;
+    document.getElementById('btn-b').disabled = true;
+    document.getElementById('btn-m').disabled = true;
+    document.getElementById('btn-reset').style.display = "block";
+}
+
+// =========================
+// RESET
+// =========================
+function reiniciarSimulador() {
+
+    saudeLavoura = 100;
+    infestacaoPraga = 20;
+    resistenciaQuimica = 0;
+    equilibrioBiologico = 60;
+    custoAcumulado = 0;
+    usosQuimico = 0;
+
+    document.getElementById('btn-q').disabled = false;
+    document.getElementById('btn-b').disabled = false;
+    document.getElementById('btn-m').disabled = false;
+    document.getElementById('btn-reset').style.display = "none";
+    document.getElementById('resultado-rodada').style.display = "none";
+
+    atualizarPainel();
+}
+</script>
