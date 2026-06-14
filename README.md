@@ -25,12 +25,15 @@ Páginas explicativas sobre tecnologias agrícolas
 Conteúdo educativo sobre sustentabilidade
 Site responsivo para celular e computador
 Navegação entre páginas HTML
+
 🛠️ Tecnologias Utilizadas
 HTML5
 CSS3
 JavaScript (puro, sem frameworks)
 Google Fonts
 Imagens externas (links da internet, sem arquivos locais)
+
+
 📁 Estrutura do Projeto
 
 O site é composto por várias páginas:
